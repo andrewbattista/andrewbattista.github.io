@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Hello world post"
+title:  "GeoBlacklight at NYU: A Project Overview"
+author: Andrew Battista
 date:   2017-12-06 10:48:45 -0500
-categories: jekyll update
+categories: geoblacklight
 ---
 
-# First change
+Here is where the content goes..
+## Getting Started with GeoBlacklight
