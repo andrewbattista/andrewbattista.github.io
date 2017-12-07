@@ -6,4 +6,4 @@ author: Andrew Battista
 categories: geoblacklight
 ---
 
-Content for the post on Dspace goes here
+Content for the post on Dspace goes here. 
