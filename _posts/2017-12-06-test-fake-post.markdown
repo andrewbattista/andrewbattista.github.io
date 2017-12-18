@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "GeoBlacklight at NYU: A Project Overview"
-date:   2017-12-06 10:48:45 -0500
+title:  "Post 1 - GeoBlacklight at NYU: A Project Overview"
+date:   2017-12-01 10:48:45 -0500
 author: Andrew Battista and Stephen Balogh
 categories: geoblacklight
 ---
@@ -51,6 +51,7 @@ Post 2 – DSpace and the Institutional Repository: Preservation and the Spatial
 
 How to design a collection workflow that begins with preservation
 How to structure a collection around existing library infrastructure
+
 January 27 – Creating GeoBlacklight Metadata Records
 
 How to create GeoBlacklight metadata records
