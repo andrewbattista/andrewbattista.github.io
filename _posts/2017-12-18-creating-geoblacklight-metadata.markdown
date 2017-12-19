@@ -27,13 +27,60 @@ GeoBlacklight (the application) is inextricable from the metadata behind it. Thi
 
 The schema incorporates key elements needed for discovery, including subject, place name (dct:spatial) and file type. There are additional elements as well that pertain to the spatial discovery and Solr index, as seen in this sample complete GeoBlacklight record (click it to enlarge).
 
-samplegbrecord
+``{
+  "dc_identifier_s": "http://hdl.handle.net/2451/34506",
+  "dc_title_s": "2012 New York City Train Stations",
+  "dc_description_s": "This point layer is an extract from the Metropolitan Transportation Authority's (MTA) stops files for Metro North and the Long Island Railroad (LIRR) that have been combined to create one train station file for the entire city. The unique ID is rail_id, a field created by attaching a railroad prefix for either Metro North or the LIRR to numbers created by the MTA. This layer was created as part of the NYC Geodatabase (NYC GDB) project, a resource designed for basic geographic analysis and thematic mapping within the five boroughs of New York City.",
+  "dc_rights_s": "Public",
+  "dct_provenance_s": "Baruch CUNY",
+  "dct_references_s": "{\"http://schema.org/url\":\"http://hdl.handle.net/2451/34506\",\"http://schema.org/downloadUrl\":\"https://archive.nyu.edu/retrieve/74705/nyu_2451_34506.zip\",\"http://www.opengis.net/def/serviceType/ogc/wfs\":\"https://maps-public.geo.nyu.edu/geoserver/sdr/wfs\",\"http://www.opengis.net/def/serviceType/ogc/wms\":\"https://maps-public.geo.nyu.edu/geoserver/sdr/wms\",\"http://www.isotc211.org/schemas/2005/gmd/\":\"http://metadata.geo.nyu.edu/records/edu.nyu/handle/2451/34506/iso19139.xml\",\"http://lccn.loc.gov/sh85035852\":\"https://archive.nyu.edu/retrieve/74759/nyu_2451_34506_doc.zip\"}",
+  "layer_id_s": "sdr:nyu_2451_34506",
+  "layer_slug_s": "nyu_2451_34506",
+  "layer_geom_type_s": "Point",
+  "layer_modified_dt": "2016-5-2T18:21:4Z",
+  "dc_format_s": "Shapefile",
+  "dc_language_s": "English",
+  "dc_type_s": "Dataset",
+  "dc_publisher_s": [
+    "Newman Library (Bernard M. Baruch College)"
+  ],
+  "dc_creator_sm": "GIS Lab, Newman Library, Baruch CUNY",
+  "dc_subject_sm": [
+    "Transportation",
+    "Railroads",
+    "Railroad stations"
+  ],
+  "dct_isPartOf_sm": "NYC Geodatabase (version jan2016)",
+  "dct_issued_s": "1/15/2016",
+  "dct_temporal_sm": [
+    "2012"
+  ],
+  "dct_spatial_sm": [
+    "New York City, New York, United States",
+    "Bronx County, New York, United States",
+    "Kings County, New York, United States",
+    "New York County, New York, United States",
+    "Queens County, New York, United States",
+    "Borough of Bronx, New York, United States",
+    "Borough of Brooklyn, New York, United States",
+    "Borough of Manhattan, New York, United States",
+    "Borough of Queens, New York, United States"
+  ],
+  "solr_geom": "ENVELOPE(-73.99358, -73.72862, 40.9054239999998, 40.6091299999998)",
+  "solr_year_i": 2012,
+  "dct_source_sm": [
+    "nyu_2451_34635",
+    "nyu_2451_34636"
+  ],
+  "geoblacklight_version": "1.0"
+}``
+
 
 Although Darren Hardy and Kim Durante do a great job of explaining what each element in the set means in their Code4Lib article, a few of them need more commentary. The dct:references field accords with a key-value schema, which accounts for multiple elements that get exposed in the GeoBlacklight interface. For instance, the “http://schema.org/url” key links back to the archival copy of the data in NYU’s institutional repository (the FDA). Simply put, whatever URL you place in the record after the “http://schema.org/url” key is the value (in this case a link to a record) will be prominent on the item result within GeoBlacklight. Similarly, the “http://www.opengis.net/def/serviceType/ogc/wfs” key links to the URL specific to our deployment of Geoserver, which allows for the map to be previewed and downloaded in multiple formats within GeoBlacklight.
 
 The other very important element in this set is the dct:spatial field. The value of this field is always a string that comes from the GeoNames ontology, but there are other items in each GeoNames entry that propagate elsewhere in the metadata record. Specifically, from this entry, you can take the dct:relation field values and the georss_box values. We won’t continue to belabor the anatomy of GeoBlacklight metadata records here, especially because Andrew volunteered to write a more detailed document later that provides commentary on the standard. Suffice it to say that while simpler and more compact than most geospatial metadata standards, GeoBlacklight still requires some work to author.
 
-Ways of Authoring Metadata
+### Ways of Authoring Metadata
 
 There are multiple ways to author GeoBlacklight metadata, some of which were covered in detail at Geo4LibCamp, the Digital Library Federation, and elsewhere. Kim Durante uses a combination of editing with ESRI’s ArcCatalog and transforming existing ISO or FGDC metadata documents (in XML format) with a series of XSLT workflows. Other librarians build upon these transforms and patch them together with metadata alterations in ArcCatalog, while others, such as the CIC group, use GeoNetwork to generate metadata that eventually will be GeoBlacklight compliant. In short, there is no perfect way to create GeoBlacklight metadata from scratch, and it inevitably requires a lot of work.
 
