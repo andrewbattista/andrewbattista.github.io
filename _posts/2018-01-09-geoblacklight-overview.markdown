@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Post 1 - GeoBlacklight at NYU: A Project Overview"
-date:   2018-01-10 10:48:45 -0500
+date:   2018-01-09 10:48:45 -0500
 author: Andrew Battista and Stephen Balogh
 categories: geoblacklight
 ---
@@ -50,7 +50,7 @@ Post 1 – GeoBlacklight at NYU: A Project Overview (this post)
 
 * Introduction to the Spatial Data Infrastructure (SDI) at NYU
 
-Post 2 – DSpace and the Institutional Repository: Preservation and the Spatial Data Infrastructure
+[Post 2 – DSpace and the Institutional Repository: Preservation and the Spatial Data Infrastructure](https://andrewbattista.github.io/geoblacklight/2018/01/10/preservation.html)
 
 * How to design a collection workflow that begins with preservation
 * How to structure a spatial data collection around existing library infrastructure
