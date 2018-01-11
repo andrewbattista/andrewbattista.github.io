@@ -55,7 +55,7 @@ Post 1 – GeoBlacklight at NYU: A Project Overview (this post)
 * How to design a collection workflow that begins with preservation
 * How to structure a spatial data collection around existing library infrastructure
 
-Post 3 – Creating GeoBlacklight Metadata Records
+[Post 3 – Creating GeoBlacklight Metadata Records](https://andrewbattista.github.io/geoblacklight/2018/01/11/creating-geoblacklight-metadata.html)
 
 * How to create GeoBlacklight metadata records from scratch
 * What to do with GeoBlacklight metadata records once they are created
