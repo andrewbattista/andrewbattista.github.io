@@ -61,7 +61,7 @@ Post 1 – GeoBlacklight at NYU: A Project Overview (this post)
 * What to do with GeoBlacklight metadata records once they are created
 * How to anticipate researcher-generated contributions
 
-Post 4 – The Technology Stack: Amazon Web Services Products & Open Source GIS
+[Post 4 – The Technology Stack: Amazon Web Services Products & Open Source GIS](https://andrewbattista.github.io/geoblacklight/2018/01/12/technology-stack-sdr.html)
 
 * How to navigate Amazon Web Services product offerings
 * How to deploy products to test out a collection model
