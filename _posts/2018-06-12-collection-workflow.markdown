@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Post 4 - The Technology Stack: Amazon Web Services Products"
-date:   2018-01-12 10:48:45 -0500
+title:  "Post 5 - SDR Collection Workflow"
+date:   2018-06-12 10:48:45 -0500
 author: Andrew Battista and Stephen Balogh
 categories: geoblacklight
 ---
