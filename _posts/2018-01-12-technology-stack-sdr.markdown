@@ -20,8 +20,8 @@ At NYU, it became apparent that AWS could be a solution for running spatial data
 
 First, let’s begin with our spatial data infrastructure as it currently stands.
 
-![A diagram of the collection elements](https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/sdr_architecture_nyu.png)
-*An overview of the collection architecture, by Himanshu Mistry*
+![A diagram of the collection elements](https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/sdr-high-level.png)
+*An overview of the collection architecture. Diagram by Deborah Verhoff, August 21, 2019*
 
 What started as a series of drawings on a chalkboard ended up as this mostly-correct diagram of our deployment of our Spatial Data Repository. To explain how we stood up these various pieces, we created a table that indexes these parts as they pertain to our collection and service flow. In-depth glosses are below the table.
 
