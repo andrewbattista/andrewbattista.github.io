@@ -1,13 +1,952 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-07T11:23:14-05:00</updated><id>http://localhost:4000/</id><title type="html">Andrew Battista Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2017/12/07/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-12-07T10:48:45-05:00</published><updated>2017-12-07T10:48:45-05:00</updated><id>http://localhost:4000/jekyll/update/2017/12/07/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/12/07/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-28T11:37:48-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Andrew Battista</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Post 5 - SDR Collection Workflow</title><link href="http://localhost:4000/geoblacklight/2018/06/12/collection-workflow.html" rel="alternate" type="text/html" title="Post 5 - SDR Collection Workflow" /><published>2018-06-12T11:48:45-04:00</published><updated>2018-06-12T11:48:45-04:00</updated><id>http://localhost:4000/geoblacklight/2018/06/12/collection-workflow</id><content type="html" xml:base="http://localhost:4000/geoblacklight/2018/06/12/collection-workflow.html">&lt;h1 id=&quot;sdr-collection--acquisitions-workflow&quot;&gt;SDR Collection / Acquisitions Workflow&lt;/h1&gt;
+&lt;p&gt;Stephen Balogh &lt;a href=&quot;mailto:sgb334@nyu.edu&quot;&gt;sgb334@nyu.edu&lt;/a&gt; &amp;amp; Andrew Battista &lt;a href=&quot;mailto:ab6137@nyu.edu&quot;&gt;ab6137@nyu.edu&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;h3 id=&quot;note&quot;&gt;Note&lt;/h3&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;p&gt;Many of the examples in this document make use of a Ruby gem called &lt;strong&gt;SdrFriend&lt;/strong&gt;, so named because of how friendly it is. The codebase for that tool, as well as documentation (including on how to set it up), can be found at its &lt;a href=&quot;https://github.com/sgbalogh/sdrfriend&quot;&gt;Github page&lt;/a&gt;. In order to install this gem, make sure you have:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;ul&gt;
+  &lt;li&gt;The latest version of Ruby installed using &lt;a href=&quot;https://rvm.io/rvm/install&quot;&gt;Ruby Version Manager&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;HomeBrew &lt;a href=&quot;https://brew.sh/&quot;&gt;installed&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Installed the bundler gem by entering &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install bundler&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Hello world post</title><link href="http://localhost:4000/jekyll/update/2017/12/06/test-fake-post.html" rel="alternate" type="text/html" title="Hello world post" /><published>2017-12-06T10:48:45-05:00</published><updated>2017-12-06T10:48:45-05:00</updated><id>http://localhost:4000/jekyll/update/2017/12/06/test-fake-post</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/12/06/test-fake-post.html">&lt;h1 id=&quot;first-change&quot;&gt;First change&lt;/h1&gt;</content><author><name></name></author><summary type="html">First change</summary></entry></feed>
+&lt;p&gt;E mail Andrew Battista to get a copy of &lt;strong&gt;SdrFriend&lt;/strong&gt; Then, download the repository, navigate to it and enter &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-assessment&quot;&gt;1. Assessment&lt;/h2&gt;
+
+&lt;p&gt;The collection and acquisition process begins by assessing the scope of a batch of data that you seek to acquire. The easiest way to do this is to start a spreadsheet and track out the number of layers that exist within a given collection.&lt;/p&gt;
+
+&lt;h4 id=&quot;example-scenario&quot;&gt;Example Scenario&lt;/h4&gt;
+&lt;p&gt;We acquire a hard disk of Shapefile (vector) layers from EastView. There are some 300 layers, grouped arbitrarily into a directory structure. First we want to get an idea of how many discrete layers (or individual Shapefiles) there are. Maybe this information is already contained in a spreadsheet provided by the vendor; if not, we may have to generate a collection of all shapefiles.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;east_view_collection
+&lt;span class=&quot;c&quot;&gt;# this assumes that there's a folder called east_view_collection that has a bunch of shapefiles in it&lt;/span&gt;
+find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-name&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;*.shp&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# this recursively locates all files matching the given pattern&lt;/span&gt;
+find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-name&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;*.shp&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ~/Desktop/east_view_files.txt
+&lt;span class=&quot;c&quot;&gt;# this saves the result to a text file, which makes it easy to see how many shapefiles exist&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The above process is just one way to determine how many layers exist in a collection. You could also count these manually, or view the list of files in Finder, select them all, then hit &lt;code class=&quot;highlighter-rouge&quot;&gt;command+c&lt;/code&gt; and then paste the result into a spreadsheet. Obviously, the kind of file you’re collecting matters, so you should adjust accordingly.&lt;/p&gt;
+
+&lt;h2 id=&quot;2a-creating-repository-records--minting-handles&quot;&gt;2a. Creating Repository Records / “Minting Handles”&lt;/h2&gt;
+
+&lt;p&gt;Once the number of items in a given collection is determined, the next step is to “mint” the requisite number of IDs from the FDA. Note that all collection additions should follow this minting process from the start. &lt;strong&gt;Do not create an item in the SDR using the DSpace interface.&lt;/strong&gt; Instead, even if you are only creating one item, use &lt;strong&gt;SdrFriend&lt;/strong&gt; and update the Handle table immediately.&lt;/p&gt;
+
+&lt;p&gt;SDR assets span two different collections on the FDA, both located within the &lt;a href=&quot;&amp;quot;https://archive.nyu.edu/handle/2451/14821&amp;quot;&quot;&gt;Division of Libraries&lt;/a&gt; community. They are:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&amp;quot;https://archive.nyu.edu/handle/2451/33902&amp;quot;&quot;&gt;Spatial Data Repository&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;dspace id: 651&lt;/code&gt;
+  – By default, all items in this collection are public and world-accessible; accordingly, only open-data or non-licensed datasets should go here&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&amp;quot;https://archive.nyu.edu/handle/2451/33903&amp;quot;&quot;&gt;Spatial Data Repository (Private)&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;dspace id: 652&lt;/code&gt;
+  – By default, all items in this collection are visible only to logged in FDA users. The FDA is configured to use NYU Single Sign On (SSO), so in effect this means that all items in this collection are visible only to users with NYU login credentials&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You should determine which of the two collections you want to create records in. Typically, in the course of accessioning a single collection, you will interact only with one of the two at a time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SdrFriend&lt;/strong&gt; can be used to mint FDA records in the relevant collection. In particular, the &lt;code class=&quot;highlighter-rouge&quot;&gt;fda:mint&lt;/code&gt; rake task allows you to pre-allocate an arbitrary amount of records and save a receipt to a text file:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/git/SdrFriend
+&lt;span class=&quot;c&quot;&gt;# The command bundle exec rake -T # allows you to view all available tasks in SdrFriend&lt;/span&gt;
+bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake fda:mint[private,100,&lt;span class=&quot;s2&quot;&gt;&quot;/Users/sgb334/Desktop/new_handles.csv&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# First part: Is the collection public or private? (in this case private)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Second part: How many IDs do you want? (in this case 100)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Third part: The path to where you want the new file to be saved and your name for it (in this case new_handles.csv)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If the above command is successful and no errors were thrown, you should have saved a CSV text file in the format  “&lt;em&gt;handle&lt;/em&gt;,&lt;em&gt;dspace-internal-id&lt;/em&gt;”. You will need this file to update the &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; lookup table, so make sure you save it. Note that you can also copy the output of the file as it appears in terminal, which you will paste in the &lt;code class=&quot;highlighter-rouge&quot;&gt;handle-dspace-lookup.csv&lt;/code&gt; file that you will soon pull from GitHub (if you haven’t already).&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Additional note: for each of these commands, spacing and capitalization matters, so it’s easiest to copy them directly from this documentation. Another good tip is to drag the file needed to run a command into Terminal directly, as it will print out the correct file-folder path&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2b-updating-the-handle-lookup-table&quot;&gt;2b. Updating the Handle lookup table&lt;/h2&gt;
+
+&lt;p&gt;The FDA (confusingly) uses two types of IDs to refer to records: an internal id (referred to as “dspace_id” in this document) and a Handle identifier. If only these were the same!&lt;/p&gt;
+
+&lt;p&gt;The Handles are great for public consumption, but unfortunately the REST API for the Faculty Digital Archive (i.e., the way in which programmed tools interact with the repository) requires the internal dspace_id, and there’s no simple way to turn one into another. As a work around, we manage our own lookup table, stored in the &lt;a href=&quot;&amp;quot;https://github.com/OpenGeoMetadata/edu.nyu/blob/master/misc/handle-dspace-lookup.csv&amp;quot;&quot;&gt;edu.nyu repository&lt;/a&gt; on GitHub.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Make sure to update this table whenever you pre-allocate / “mint” new FDA records. Disassociating the dspace_id from the Handle identifier causes problems down the line&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;One way to make updates to the lookup table is to set up git to commit to the &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; metadata repository (see &lt;a href=&quot;https://help.github.com/articles/set-up-git/&quot;&gt;these instructions on how to do it&lt;/a&gt;). If you’re already set up to commit to the edu.nyu repository, here’s a simple way to update the table:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/git/edu.nyu
+git checkout master
+&lt;span class=&quot;c&quot;&gt;## Then, run this next command:&lt;/span&gt;
+git pull
+&lt;span class=&quot;c&quot;&gt;## this makes sure you have the most current version of the entire edu.nyu repository on your computer.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## Once you've done this, copy the direct output (file) of the handles and DSpace IDs as it appears in Terminal, or copy the text of the .CSV that was generated from the fda:mint command above&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## Then, go to the lookup table folder within the misc folder in the edu.nyu repository on your drive, open the .CSV with Atom, and paste the new handles in there. Make sure there are no extra lines at the end, and save it.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## Inspect that everything worked by executing the following commands:&lt;/span&gt;
+
+git status
+
+git diff misc/handle-dspace-lookup.csv
+
+&lt;span class=&quot;c&quot;&gt;## If it looks good, go ahead and commit it&lt;/span&gt;
+git add ./misc/handle-dspace-lookup.csv &lt;span class=&quot;c&quot;&gt;## stage the changes in the file&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;adds some new Handles for X collection&quot;&lt;/span&gt;
+git push
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Note: if any of the above looks confusing to you, there are a million other ways to update the table; you could try using the GitHub Desktop app, for instance. You could manually concatenate the two CSV documents using Excel (or even just a text editor like Atom). Just make sure that the lookup table is completely in sync any time new handles are minted, or else SdrFriend won’t work anymore. Also note that at this point you may need to delete any .DS_Store files that may have crept in&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-create-geoblacklight-opengeometadata&quot;&gt;3. Create GeoBlacklight OpenGeoMetadata&lt;/h2&gt;
+
+&lt;p&gt;At this point, you’ve got a grasp on what documents exist and need to be described, and you’ve already pre-allocated the appropriate number of FDA records in the relevant collection. Now you’ll want to start actually constructing what will end up being the various GeoBlacklight records describing your layers.&lt;/p&gt;
+
+&lt;p&gt;These days, it seems like simply working in a spreadsheet is the best way to start. Begin by making a copy of the &lt;a href=&quot;https://docs.google.com/spreadsheets/d/1XAjL59fEsegZm2dArVjeT0XaOLohvDIkSQ9_RftSPlI/edit?usp=sharing&quot;&gt;GeoBlacklight template&lt;/a&gt;. Alternatively, you can have &lt;strong&gt;SdrFriend&lt;/strong&gt; generate one for you:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/git/SdrFriend
+bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake metadata:template[/Users/sgb334/Desktop/new_collection.csv]
+&lt;span class=&quot;c&quot;&gt;## this stipulates the path where you want to save the file and the name of the file&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The first data you should add is the dspace_id and Handle attributes from the collection you just pre-allocated. Go ahead and paste them into the CSV. Feel free to add in additional columns to the CSV document if it’s convenient to do so (such as “original file names”), though &lt;strong&gt;only the columns listed in the template&lt;/strong&gt; will persist after converting the CSV to actual GeoBlacklight records. Also, very important: &lt;strong&gt;don’t rename any of the existing template columns.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;From here, do whatever you need to do to fill in the rest of the columns. In general, you are responsible for all of the metadata elements; the only ones which cannot be filled in at this time are the &lt;code class=&quot;highlighter-rouge&quot;&gt;ref:download-url&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ref:documentation-url&lt;/code&gt; fields, which are intended to point to FDA bitstreams. That workflow is described below. If you are using the Google Sheets template, the &lt;code class=&quot;highlighter-rouge&quot;&gt;layer_modified_dt&lt;/code&gt; field should also automatically update as you work in the Sheet. If you have any questions about the rules or best practices for filling out metadata fields, refer to the &lt;a href=&quot;https://github.com/geoblacklight/geoblacklight/blob/master/schema/geoblacklight-schema.md&quot;&gt;GeoBlacklight Schema&lt;/a&gt;. One of the most difficult fields to come up with is the &lt;code class=&quot;highlighter-rouge&quot;&gt;solr_geom&lt;/code&gt;, so refer to the appendix of this document for an &lt;strong&gt;SdrFriend&lt;/strong&gt; command to find the &lt;code class=&quot;highlighter-rouge&quot;&gt;solr_geom&lt;/code&gt; of a given file if you aren’t going to use another method.&lt;/p&gt;
+
+&lt;p&gt;Every FDA/GeoBlacklight layer needs at least one download url (the main, &lt;code class=&quot;highlighter-rouge&quot;&gt;ref:download-url&lt;/code&gt; value). If your layer comes with additional documentation or codebook material, you may also want to link directly to that in the GeoBlacklight record (via &lt;code class=&quot;highlighter-rouge&quot;&gt;ref:documentation-download&lt;/code&gt;), and make use of GeoBlacklight’s contextual rendering for it. Unfortunately, though, it isn’t possible to predict what the bitstream URLs will be until you have already uploaded them to your empty FDA container records. Thus, we will need to move on once we have enough metadata to otherwise constitute minimal viable GeoBlacklight records. Later, we will insert the correct download URLs before outputting the “OpenGeoMetadata-ready” version of the records.&lt;/p&gt;
+
+&lt;h2 id=&quot;4-create-bitstreams-packages-and-prepare-them&quot;&gt;4. Create bitstreams packages and prepare them&lt;/h2&gt;
+
+&lt;p&gt;At this point, we now need prepare to upload our actual content to the digital repository (FDA). First, we need to assemble the bitstreams that we will be uploading. Although it isn’t perfect, the best strategy is to create a “container” for our impending upload. To do this, run the following task in &lt;strong&gt;SDRFriend&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake files:download_containers[/Users/andrewbattista/Desktop/containers_for_collection,Users/andrewbattista/Downloads/UAE_collection_metadata.csv]
+
+&lt;span class=&quot;c&quot;&gt;## In the above command, you are first stipulating the area of your computer where you want to create the new folders and then the second part is the name of the CSV that you're using (from step 3 above) to make the GeoBlacklight metadata. Likely, you will have downloaded this from your Google Sheet. It is important that your CSV does not have spaces or numbers in its title&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Note also that this command just creates a structure of blank folders that are named according to the handles you've already created. After running this command, you'll need to do a similar thing to create documentation folders:&lt;/span&gt;
+
+bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake files:documentation_containers[/Users/andrewbattista/Desktop/doc_containers_for_collection,Users/andrewbattista/Downloads/UAE_collection_metadata.csv]
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After creating both sets of new folders, you may want to combine them into a single folder, or you may want to keep them separate. This is an assessment you’ll have to make depending on the condition of the data you’re taking in. Which leads us into the next point.&lt;/p&gt;
+
+&lt;p&gt;All SDR submissions have to be in a directory structure that looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- nyu_2451_12345/
+    - DISTRICT91.shp
+    - DISTRICT91.prj
+    - DISTRICT91.shx
+    - DISTRICT91.dbf
+    - DISTRICT91.shp.xml
+    - variables.xlsx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Above: a sample directory structure for a SDR Shapefile or GeoTIFF layer submission. That is, each folder must contain all of the discrete files UNZIPPED that are part of a Shapefile, and they can contain other stuff, like XML metadata, homegrown codebooks, etc.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The same can be said for the codebook or documentation folder that corresponds with each layer. For example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- nyu_2451_12345_doc/
+    - variables.xlsx
+    - codebook.txt
+    - DISTRICT91.shp.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Above: a sample directory structure for the documentation folder. Note that it could be good practice to put standard metadata files in both the primary download folder and the documentation folder&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;There are a litany of ways of outputting files that make it more or less easy to place them within the appropriate folder and file structure. Some of these may involve homegrown scripts, but in either case, even if you’re dragging files into a pre-fabricated list of folders, you’re coming out ahead. And the containers will help you to stay organized.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Suggested advice:&lt;/strong&gt; the step of organizing your files can take a lot of time, so when you’re done, you may want to preserve the folders and files you’ve organized in a safe place, because you will need them later to convert the shapefiles to SQL files. For example, it could be a good idea to make a copy of the files and folder with the data in it and put it somewhere else or drag it into the cloud just in case.&lt;/p&gt;
+
+&lt;p&gt;After all of the files are in place in the appropriate folder, the final part of this process is to run an &lt;strong&gt;SdrFriend&lt;/strong&gt; command to zip individual files up into an archive named after the containing folder:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake files:zip_bitstreams[/Users/andrewbattista/Desktop/containers_for_collection]
+
+&lt;span class=&quot;c&quot;&gt;## In this command, stipulate the folder path where the `containers_for_collection` folder is&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;At this point, each folder structure should now look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- nyu_2451_12345/
+  - nyu_2451_12345.zip
+- nyu_2451_12346/
+  - nyu_2451_12346.zip
+- nyu_2451_12347/
+  -nyu_2451_12347.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;After the zips have been created successfully, you might want to open a few of them and spot check the files to make sure they are all there and are all created accurately. Again, leave the new data you’ve just zipped up alone and make a copy of it to inspect. If everything looks good, you can move on to the next step of uploading basic metadata to the FDA.&lt;/p&gt;
+
+&lt;h2 id=&quot;5-upload-basic-descriptive-metadata-to-fda&quot;&gt;5. Upload basic descriptive metadata to FDA&lt;/h2&gt;
+
+&lt;p&gt;Before all of the primary data bitstreams and documentation bitstreams are uploaded, it is a good idea to push our agreed-upon rudimentary descriptive metadata to the FDA. In order to do this, we will use the &lt;strong&gt;SdrFriend&lt;/strong&gt; GeoBlacklight-to-FDA metadata command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake fda:gbl_to_fda_metadata[/Users/andrewbattista/Downloads/UAE_metadata_final.csv]
+
+&lt;span class=&quot;c&quot;&gt;## Here, the CSV input should be the .CSV file where your partially completed metadata records exist. You should just use the same CSV file you have been working on and downloaded earlier, provided all items have finalized titles and descriptions (at least).&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once you run this command, check out a few items in the FDA to see if the titles and descriptions loaded correctly. The upside of doing this step now is that it makes it easier to check on the accuracy of bitstreams once we upload them (since you’ll be able to see the names of the items in the FDA). Note that you should &lt;em&gt;never&lt;/em&gt; edit metadata directly in the FDA, even if you catch a typo or something. All metadata edits should be reflected in the canonical metadata copy in OpenGeoMetadata, which means for now that you should make the edit(s) you need in the Google Sheet. Periodically, we will use the &lt;code class=&quot;highlighter-rouge&quot;&gt;fda:gbl_to_fda_metadata&lt;/code&gt; command to make sure the FDA basic metadata is in sync with what appears in GeoBlacklight.&lt;/p&gt;
+
+&lt;h2 id=&quot;6a-upload-bitstreams-to-fda&quot;&gt;6a. Upload bitstreams to FDA&lt;/h2&gt;
+
+&lt;p&gt;Now that the basic metadata is in place in the FDA, we need to actually upload the various primary data &amp;amp; codebook bitstreams (when applicable) to their respective FDA records. We can do this either one bitstream at a time, or in batch:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake fda:addbit[/Users/sgb334/Desktop/nyu_2451_12345.zip]
+
+&lt;span class=&quot;c&quot;&gt;## This command adds a single bitstream to a single record&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The command above will upload the referenced bitstream to the appropriate FDA record (i.e., the record at http://hdl.handle.net/2451/12345). This will only work, however, if the bitstream follows the naming convention, and if the Handle lookup table has an entry corresponding to this Handle. Otherwise, we would need to specify exactly where we want to upload the bitstream to by referencing that record’s internal dspace_id:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake fda:addbit[/Users/sgb334/Desktop/my_file.zip,53423]
+&lt;span class=&quot;c&quot;&gt;## The number after the file is the dspace_id of the item you're uploading to&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alternatively, if we are uploading a large number of files that are all stored in the same directory, we can use &lt;strong&gt;SdrFriend&lt;/strong&gt; to batch upload them. For this to work, we &lt;strong&gt;must&lt;/strong&gt; have files that follow the naming convention detailed in section 4.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake fda:bit_batch[/Users/sgb334/Desktop/containers_for_collection,zip_only]
+
+&lt;span class=&quot;c&quot;&gt;## In this command, the first part points to the path on your computer where the completed bitstream container is, and the second part is a parameter that allows you to stipulate &quot;upload zipped items only.&quot; It's best practice to add this in at this step.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Running this command requires some monitoring. The bitstream uploads may trip up, but the report on the console will tell you which ones have uploaded successfully and which ones have not. When you get an error, re-run the command. Before re-running this command, though, you’ll need to go in and “re-create” the container folders and take out all of the bitstreams that have already successfully uploaded, or else the command will throw an error again. The best way to do this is simply to create a new folder called &lt;code class=&quot;highlighter-rouge&quot;&gt;containers_for_collection_subset&lt;/code&gt; or something like that and drag in any of the files from the original &lt;code class=&quot;highlighter-rouge&quot;&gt;containers_for_collection&lt;/code&gt; folder that didn’t yet upload. Or, just delete the files that have been successfully uploaded (provided that you previously made a copy of all of the data elsewhere). Also, spot check each of the uploads in the FDA and download a few of them to verify that the zips have been created successfully.&lt;/p&gt;
+
+&lt;h2 id=&quot;6b-retrieve-the-bitstream-urls-to-plug-into-our-metadata-records&quot;&gt;6b. Retrieve the bitstream URLs to plug into our metadata records&lt;/h2&gt;
+
+&lt;p&gt;Now that we have uploaded all of the bitstreams to the FDA successfully, we can use &lt;strong&gt;SdrFriend&lt;/strong&gt; to retrieve the existing bitstream download URLs, which are important elements for GeoBlacklight metadata. In order to do this, run the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake metadata:bithydrate_csv[/Users/andrewbattista/Downloads/UAE_metadata_final.csv,/Users/andrewbattista/Downloads/UAE_collection_bitstreams.csv]
+&lt;span class=&quot;c&quot;&gt;# The first part should be a .CSV file that you have. Given the logic of the workflow, it will likely be the same .CSV that you've been using throughout this process to create FDA metadata, GeoBlacklight metadata, etc. The second part of this command generates a new CSV (here you tell it where you want the new file to be)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After running the command, open up the newly created bitstreams CSV with Atom or Excel, copy the bitstream URLs, and stick them back into the main metadata CSV template in Google Sheets that you have been working on. Now that you have done this, you have all of the required elements for finalized GeoBlacklight metadata (assuming that you have also taken care of the Solr bounding boxes; if you haven’t gotten the bounding boxes yet, now is a good time to do it).&lt;/p&gt;
+
+&lt;h2 id=&quot;7-finalize-geoblacklight-metadata-records-and-export-them-as-json&quot;&gt;7. Finalize GeoBlacklight Metadata Records and export them as .JSON&lt;/h2&gt;
+
+&lt;p&gt;Now that you have a completely filled out CSV, use &lt;strong&gt;SdrFriend&lt;/strong&gt; to transform it into a single JSON file. First, download or save the file you’re working on as a CSV (again, remembering to avoid numbers or spaces in the filename). Then, run the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake metadata:csv_to_json[/Users/sgb334/Downloads/eastview_files.csv,/Users/sgb334/Downloads/eastview_files_singlefile.json]
+
+&lt;span class=&quot;c&quot;&gt;# First part: Path and location where your CSV is&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Second part: Name of your new .JSON file that has all of the individual layer records within a single file.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Doing this will generate a single file with as many .JSON records as there are rows in your CSV. It’s a good idea to save this file for the subsequent step of indexing into Solr. For now, though, the next step is to split this one .JSON record into many individual item records that are named &lt;code class=&quot;highlighter-rouge&quot;&gt;geoblacklight.json&lt;/code&gt; and reside in folders named according to our handle naming structure convention with OpenGeoMetadata. In order to do this, run the following script from the command line in Ruby (begin by typing in &lt;code class=&quot;highlighter-rouge&quot;&gt;irb&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;require &lt;span class=&quot;s1&quot;&gt;'json'&lt;/span&gt;
+
+irb_context.echo &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false
+
+&lt;/span&gt;nyu_file &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; File.read&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/Users/andrewbattista/Downloads/UAE_complete_metadata_singlefile.json'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## The file where the original .json that contains all of the records is above. Make sure to include the full path. Change accordingly&lt;/span&gt;
+
+parsed_nyu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; JSON.parse&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;nyu_file&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## The JSON.parse function parses the single file into discrete outputs as JSON files&lt;/span&gt;
+
+parsed_nyu.each &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; |record|
+  folder_name &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; record[&lt;span class=&quot;s1&quot;&gt;'layer_slug_s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+  dir1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; record[&lt;span class=&quot;s1&quot;&gt;'layer_slug_s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;4..7]
+  dir2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; record[&lt;span class=&quot;s1&quot;&gt;'layer_slug_s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;9]
+  dir3 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; record[&lt;span class=&quot;s1&quot;&gt;'layer_slug_s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;10..11]
+  dir4 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; record[&lt;span class=&quot;s1&quot;&gt;'layer_slug_s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;12..13]
+
+&lt;span class=&quot;c&quot;&gt;## This defines variables that correspond to the text string of the layer_slug_s element&lt;/span&gt;
+
+  full_folder &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/Users/andrewbattista/Desktop/edu.nyu/handle&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#{full_folder}/#{dir1}/#{dir2}/#{dir3}/#{dir4}`&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;## This command above runs a unix command to make new folders according to the naming convention laid out from the named variables above&lt;/span&gt;
+
+  File.open&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#{full_folder}/#{dir1}/#{dir2}/#{dir3}/#{dir4}/geoblacklight.json&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;w&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; |f|
+
+  &lt;span class=&quot;c&quot;&gt;## We are opening a file that doesn't yet exist, giving it a name before it comes into being, and that name is the value full_folder/geoblacklight.json. Then it writes that to a file.&lt;/span&gt;
+
+    f.write&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JSON.pretty_generate&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;record&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;At this time, &lt;strong&gt;SdrFriend&lt;/strong&gt; does not have a native split function, but this may be developed for NYU’s convention only; other institutions’ repositories will have to be managed with an individual script. For now, this script will work to produce individual JSON files that adhere to NYU’s file-folder naming convention. Once these folders and files are created, you’re ready to move on to step 10, committing these finalized records to the OpenGeoMetadata repository (see below).&lt;/p&gt;
+
+&lt;h2 id=&quot;8a-create-sql-versions-of-datasets-and-upload-to-postgis&quot;&gt;8a. Create SQL versions of datasets and upload to PostGIS&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Note: This step is only relevant for vector files. If you are accessioning raster images, such as GeoTIFFs, skip to step 8b.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;overview-of-vector-processing&quot;&gt;Overview of vector processing&lt;/h4&gt;
+
+&lt;p&gt;To enable previews and downloads via GeoServer’s WMS / WFS services, we have to create a SQL version of our Shapefiles (in the projection EPSG:4326), and add them to the PostGIS database which stores EPSG:4326 “preview” versions of every vector layer in our collection. Earlier, while assembling bitstream packages for upload to the FDA, the procedure was to simply package up the original geospatial data layer as we downloaded it or received it. Now, however, in order to connect to GeoServer we’ll have to make some modifications to it, which include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Reprojecting the layer to the standardized Coordinate Reference System (CRS) &lt;code class=&quot;highlighter-rouge&quot;&gt;EPSG:4326&lt;/code&gt; (if it isn’t already in that CRS)&lt;/li&gt;
+  &lt;li&gt;Renaming the file to represent the Handle associated with it. Earlier we were just naming the containing folder using the Handle convention, and letting the Shapefile keep its original name; now we have to make sure the layer and all the data files that comprise it uses the Handle as its name, so that the resulting table on PostGIS is predictably named&lt;/li&gt;
+  &lt;li&gt;Creating a SQL version of the Shapefile. This involves converting a Shapefile into a SQL script that creates a new table (named according to the pattern &lt;code class=&quot;highlighter-rouge&quot;&gt;nyu_XXXX_XXXXX&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Connecting to the PostGIS database on AWS and insert the new layer using its SQL script&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;setting-up-dependencies-for-vector-processing&quot;&gt;Setting up dependencies for vector processing&lt;/h4&gt;
+
+&lt;p&gt;There are a few dependencies and “one time” things that you need to install or set up so that everything within the suite of vector processing scripts will work properly and smoothly. Before this process begins, you will need to have downloaded the .pem file from the NYU Box SDR credentials folder.&lt;/p&gt;
+
+&lt;p&gt;First, on a Mac that has HomeBrew already, install GDAL by running these commands from Terminal:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew update
+brew doctor
+
+brew install postgresql &lt;span class=&quot;c&quot;&gt;## psql&lt;/span&gt;
+brew install gdal &lt;span class=&quot;c&quot;&gt;## ogr2ogr&lt;/span&gt;
+brew install postgis &lt;span class=&quot;c&quot;&gt;## shp2pgsql&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Another “meta step” is to create a “favorite” in your &lt;a href=&quot;https://transmit.en.softonic.com/mac&quot;&gt;Transmit FTP client&lt;/a&gt; so you can easily connect to the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu&lt;/code&gt; server. It is recommended that you buy a copy of Transmit if you’re going to work with this step of the collection process frequently.&lt;/p&gt;
+
+&lt;p&gt;You will need to SSH into the metadata server. Here is the command to do that:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; /Users/staff/Documents/SDR_Credentials/key-1-jun24-2015.pem ubuntu@metadata.geo.nyu.edu
+&lt;span class=&quot;c&quot;&gt;## The full path is the location on your hard drive where the permissions file is which is then followed by the username@the-server, in this case ubuntu@metadata.geo.nyu.edu&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After running the command, you may get a message to update the permissions of the key file. In order to do this, run &lt;a href=&quot;https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html&quot;&gt;this one-time command&lt;/a&gt;(it’s step number 3):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;chmod 400 /Users/staff/Documents/SDR_Credentials/key-1-jun24-2015.pem
+&lt;span class=&quot;c&quot;&gt;## Again, this path should represent the location of the permissions file on your hard drive&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should only have to run this one time. Next, you open Transmit, tab over to “Favorites,” and click the plus at the bottom to add a new favorite. You will need the username, which is &lt;code class=&quot;highlighter-rouge&quot;&gt;ubuntu&lt;/code&gt;, and the password, which you can find via NYU’s internal documents. Actually download the .pem file onto your hard drive, as per the above command would suggest, and then connect it when you log in.&lt;/p&gt;
+
+&lt;h4 id=&quot;actually-preparing-the-files-for-transformation-within-transmit&quot;&gt;Actually preparing the files for transformation within Transmit&lt;/h4&gt;
+
+&lt;p&gt;Assuming that you have already made the requisite connections to the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu&lt;/code&gt; server in Transmit, you’re now ready to actually convert files.&lt;/p&gt;
+
+&lt;p&gt;It’s likely that you have saved the container folders that you produced in step 4 above, but you may only have the zipped up bitstreams left. If that’s the case, you’ll need to run the following script to “unzip” the bitstreams but leave them in their containing folders:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;require &lt;span class=&quot;s1&quot;&gt;'find'&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;FOLDER_WITH_CONTAINERS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/Users/andrewbattista/Desktop/sdr_collection&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Gather all paths, recursively, from the folder above, but only&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## retain those ending with `.zip`&lt;/span&gt;
+zip_paths &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Find.find&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;FOLDER_WITH_CONTAINERS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.select&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; |path| File.extname&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;path&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.zip&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## For each zip path, we determine its parent directory, and then&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## run bash commands to unzip and delete&lt;/span&gt;
+zip_paths.each &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; |zp|
+  containing_directory &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zp.gsub&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;File.basename&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;zp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#{containing_directory}; unzip #{zp}; rm #{zp}`&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After running this script, you have the files you need for the conversion into SQL. If you never did zip up the files, or you’ve preserved the unzipped shapefiles, you won’t need to do the above script. Instead, you can move on and SSH into the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu&lt;/code&gt; server:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; /Users/staff/Documents/SDR_Credentials/key-1-jun24-2015.pem ubuntu@metadata.geo.nyu.edu
+&lt;span class=&quot;c&quot;&gt;## The full path is the location on your hard drive where the permissions file is which is then followed by the username@the-server, in this case ubuntu@metadata.geo.nyu.edu&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you are connected to the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu server&lt;/code&gt;, use Terminal to navigate to the vector-processing directory. The first thing you’ll want to do is run the cleanup command to remove any existing files that might be occupying the folders already. Remember that to navigate around in Terminal hit &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; to list the sub-folders in the directory and then &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; to enter the folder you want. To run the cleanup command, enter the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash cleanup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check inside the folders in Terminal to make sure that all of the files are cleaned out. After the files are cleaned out, you can now place your original, unprojected files into the folders so that the vector processing script will work. Simply take the original shapefiles and place them into the &lt;code class=&quot;highlighter-rouge&quot;&gt;input_shp_to_WGS84&lt;/code&gt; folder.  Find the files from the bitstream package construction step (see step 4 above), make sure the files are unzipped elements that are inside of a folder that has the naming convention spelled out in step 4 and then drag and dump the folders with the files in them into the aforementioned &lt;code class=&quot;highlighter-rouge&quot;&gt;input_shp_to_WGS84&lt;/code&gt; folder (see image below). Doing this is part one of the process (re-projecting original files into WGS84).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;./images/transmit-metadata.geo.nyu.edu.png&quot; alt=&quot;Transmit view of vector-processing-script &quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;run-the-vector-processing-scriptprocessingsh-script-to-convert-files&quot;&gt;Run the &lt;code class=&quot;highlighter-rouge&quot;&gt;vector-processing-script/processing.sh&lt;/code&gt; script to convert files&lt;/h4&gt;
+
+&lt;p&gt;Now that the files are in place in Transmit, we are ready to run the conversion script. To run it, enter the following command in Terminal.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vector-processing-script
+bash processing_May16_revise.sh
+&lt;span class=&quot;c&quot;&gt;## This command reflects a version of the script that assumes the files you are converting had attributes encoded in UTF-8, which may not always be the case. If in doubt, look at the difference between the May 16 version of the script and the original processing.sh script, and run the original script if necessary.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After entering that command, the script should then run via an interactive menu that has a heading saying &lt;strong&gt;NYU SDR Processing Script&lt;/strong&gt; Simply follow its prompts. Most of the steps are intuitive, but the key is that you will have to re-name each of the files one-by-one according to the nyu_XXXX_XXXXX convention when you get to the conversion process. Doing this takes concentration, but if you have the original CSV that has the metadata in it with the original filenames (and in the same order that you associated them with existing handles), you can stay on track.&lt;/p&gt;
+
+&lt;p&gt;After you have created new SQL files, they should be posted to the PostGIS database on their own. To check, open the &lt;code class=&quot;highlighter-rouge&quot;&gt;output_shp_to_sql&lt;/code&gt; folder and check to see if the SQL files are in there.&lt;/p&gt;
+
+&lt;h2 id=&quot;8b-upload-raster-images-to-geoserver&quot;&gt;8b. Upload raster images to GeoServer&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Note: If the collection items you are processing are Raster (GeoTIFFs), you don’t need worry about the entire process described in 8a. Instead, follow this process. Better instructions are forthcoming&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Each GeoServer host (Public and Restricted) has access to a single EFS (Amazon NFS) share that is mounted on both hosts at &lt;code class=&quot;highlighter-rouge&quot;&gt;/efs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Raster layers are stored in &lt;code class=&quot;highlighter-rouge&quot;&gt;/efs/geoserver/raster&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ubuntu@ip-172-31-48-183:~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /efs/geoserver/raster
+ubuntu@ip-172-31-48-183:/efs/geoserver/raster&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls
+&lt;/span&gt;nyu_2451_34189  nyu_2451_37668  nyu_2451_40801  nyu_2451_41076  nyu_2451_41351 ...
+
+ubuntu@ip-172-31-48-183:/efs/geoserver/raster&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;nyu_2451_34189
+ubuntu@ip-172-31-48-183:/efs/geoserver/raster/nyu_2451_34189&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls
+&lt;/span&gt;nyu_2451_34189.tif
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;9-enable-layers-on-geoserver&quot;&gt;9. Enable layers on GeoServer&lt;/h2&gt;
+
+&lt;p&gt;GeoServer can be interacted with through a web-interface, or a REST HTTP API. It is recommended to update or “turn on” layers in batch using the REST API. First, though, it helps to understand the architecture of NYU’s GeoServers.&lt;/p&gt;
+
+&lt;h4 id=&quot;fundamental-layout-of-nyus-geoserver-implementation&quot;&gt;Fundamental layout of NYU’s GeoServer implementation&lt;/h4&gt;
+
+&lt;p&gt;We are maintaining two GeoServers:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Maps-Public (&lt;a href=&quot;http://maps-public.geo.nyu.edu&quot;&gt;maps-public.geo.nyu.edu&lt;/a&gt;)
+ – Layers published in this instance are accessible to everyone in the world
+ – This instance contains layers for all NYU hosted records with the &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;dc_rights_s&quot;: &quot;Public&quot;&lt;/code&gt; value&lt;/li&gt;
+  &lt;li&gt;Maps-Restricted (&lt;a href=&quot;http://maps-restricted.geo.nyu.edu&quot;&gt;maps-restricted.geo.nyu.edu&lt;/a&gt;)
+– Layers published in this instance should be accessible only to the NYU IP range, which is already defined in the application, and to other hosts in the AWS virtual cloud
+– This instance contains layers for all NYU hosted records with the &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;dc_rights_s&quot;: &quot;Restricted&quot;&lt;/code&gt; value&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each GeoServer instance has access to map data in two ways:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Vector
+– Vector data is served through a database connection to our AWS-hosted PostGIS&lt;/li&gt;
+  &lt;li&gt;Raster
+– Raster data is served using files stored on two EBS volumes (one for the Public host, one for the Restricted host), directly mounted on each respective GeoServer host at &lt;code class=&quot;highlighter-rouge&quot;&gt;/ebs&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;enabling-layers-via-the-geoserver-api&quot;&gt;Enabling layers via the GeoServer API&lt;/h4&gt;
+
+&lt;p&gt;Enabling layers via the GeoServer API is more efficient. In order to do this, use the GeoServer rake task within the &lt;strong&gt;SdrFriend&lt;/strong&gt; to enable the layers:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake geoserver:enable[Users/andrewbattista/UAE_collection_metadata.csv]
+&lt;span class=&quot;c&quot;&gt;## In this command, the path stipulated is the CSV that contains all of the files used to process the collection. This should be the same CSV used to generate the metadata in step 7 above.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once this command happens the layers will be “activated” in the appropriate instance of GeoServer. The blank line beneath each layer that gets posted is the response from the server, and no response is what you want. After the layers have loaded, you can log in to the web interface of the respective GeoServer instance (public or private), click on layer previews, search for a layer from the newly created files, and verify that they are loading and previewing correctly. You may want to examine the attribute table and the geometries in tandem with downloading the original file in QGIS.&lt;/p&gt;
+
+&lt;h2 id=&quot;10-commit-records-to-the-opengeometadata-repository&quot;&gt;10. Commit records to the OpenGeoMetadata repository&lt;/h2&gt;
+
+&lt;p&gt;Now we return to the metadata. Once you have finalized your metadata records (see step 7), the next step is to commit them to the &lt;a href=&quot;https://github.com/OpenGeoMetadata/edu.nyu&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; repository&lt;/a&gt;. You can do this as soon as you finish step 7 and place it here, or you can wait until you have finished steps 8-9. It doesn’t matter. First, take the newly created folders and files from step 7 and create a new update branch on the &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; master repository. The best practice is to commit your changes to that new collection branch, then issue a pull request from that branch into the master branch.&lt;/p&gt;
+
+&lt;p&gt;There are two ways to create a new branch and submit it as a pull request: via Git commands or via the GitHub desktop software. Here’s the sample workflow with Git:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/git/edu.nyu
+git checkout master
+git pull
+
+&lt;span class=&quot;c&quot;&gt;## This initial command makes sure you have downloaded the most current version of the edu.nyu metadata repository&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Switch to a new local branch, based on master&lt;/span&gt;
+git checkout &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; my_new_collection
+&lt;span class=&quot;c&quot;&gt;## -b creates a new branch called 'my_new_collection'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;At this point, add all of the new records to the &lt;code class=&quot;highlighter-rouge&quot;&gt;~/git/edu.nyu&lt;/code&gt; directory. You can simply drag the folders in to their respective location on your own hard drive. Once the new files are in place, commit and push to GitHub with the sequence below:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git status
+
+&lt;span class=&quot;c&quot;&gt;## just to inspect the changes, which in this case will be the newly added files&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Then:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;## Stages all changes&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Adds records for whatever collection&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Push the commit to a new branch on Github&lt;/span&gt;
+git push &lt;span class=&quot;nt&quot;&gt;--set-upstream&lt;/span&gt; origin my_new_collection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now the new records have been posted to Github. If you go to the &lt;a href=&quot;https://github.com/OpenGeoMetadata/edu.nyu&quot;&gt;main page for the repository&lt;/a&gt;, you should be able to see that a new branch (&lt;code class=&quot;highlighter-rouge&quot;&gt;my_new_collection&lt;/code&gt;) was just pushed. Take a look at the branch, and if everything seems good, issue a pull request and assign another member of the geo team to review it. &lt;strong&gt;It’s typically considered poor form to approve your own pull request, so assign it to another member of the geo team to review&lt;/strong&gt; If you have been assigned to review, the things you should look for include: making sure the file-folder convention match the identifier for the record, making sure no needless blank elements exist, making sure all elements are filled out correctly, etc. If all is good, you can both approve the pull request and merge into the master branch with the command below:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout master
+git pull
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also review and confirm the merge on the GitHub web interface. After that pull request is approved and merged into the Master branch, make sure to delete the &lt;code class=&quot;highlighter-rouge&quot;&gt;my_new_collection&lt;/code&gt; branch on Github, since it is no longer needed, and then delete it on your local machine. The new metadata records are now complete an in the collection.&lt;/p&gt;
+
+&lt;p&gt;The final part of this process is doing one more check to ensure that all of the records are GeoBlacklight compliant. A Travis continuous integration (CI) script on GitHub should kick off for any commit to the repository. It will attempt to validate every record (using &lt;a href=&quot;https://github.com/OpenGeoMetadata/GeoCombine&quot;&gt;GeoCombine&lt;/a&gt;), and log the results. Note that the build typically takes a few minutes to complete. If there are any errors, you can come up with a strategy for fixing them.&lt;/p&gt;
+
+&lt;p&gt;You can also use the GitHub desktop software to accomplish this same process. In order to do that, first clone the entire &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; repository to your hard drive, then drag in new the new metadata files you have created. If you haven’t done so already, add the repository to your application by clicking the plus button at the top left. Immediately, you will see differences of the changed files that have been added or edited. Next, create a new branch, and name it according to the collection. Finally, commit that branch to the master and then navigate to the web interface to issue the pull request.&lt;/p&gt;
+
+&lt;h2 id=&quot;11-index-newly-updated-metadata-records-into-solr&quot;&gt;11. Index newly updated metadata records into Solr&lt;/h2&gt;
+
+&lt;h4 id=&quot;installing-a-local-development-instance-of-the-nyu-libraries-geoblacklight-repository&quot;&gt;Installing a local development instance of the NYU Libraries GeoBlacklight repository&lt;/h4&gt;
+
+&lt;p&gt;Now that the new metadata records are a part of the master branch of the &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; repository, we are ready to index them into Solr. The first thing to do is index them into a development instance of Solr and GeoBlacklight to make sure that all of the records look okay and don’t cause any errors. If you haven’t done this before, you’d first need to make a clone of the NYU production GeoBlacklight on your computer. The repository is located &lt;a href=&quot;https://github.com/NYULibraries/spatial_data_repository&quot;&gt;here&lt;/a&gt;. We will need to put in the .yml file that contains the secret passwords. That is kept in the credentials box drive and is called &lt;code class=&quot;highlighter-rouge&quot;&gt;geoblacklight.yml&lt;/code&gt;. Copy that file, drag it into spatial_data_repository/config, and then rename it to &lt;code class=&quot;highlighter-rouge&quot;&gt;vars.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;installing-solr-and-other-requirements&quot;&gt;Installing Solr and other requirements&lt;/h4&gt;
+
+&lt;p&gt;The other prefatory step you need to take is to set up Solr and the GeoBlacklight Solr core in the dev version on the local hard drive. To install Solr, type in the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install solr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once it’s installed successfully, go to Terminal and type:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+solr start
+
+&lt;span class=&quot;c&quot;&gt;## solr stop stops Solr and solr status lets you know if it's running and solr restart restarts&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, go to &lt;a href=&quot;http://localhost:8983/solr/&quot;&gt;this address&lt;/a&gt;. Once you get there, you’ve arrived at the web interface of Solr. Now you need to make sure there is valid GeoBlacklight core. To do this, download the GeoBlacklight core zip that is in the NYU box drive. Then go to your local install of Solr, specifically this directory: &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/Cellar/solr/7.3.1/server/solr&lt;/code&gt; and put the unzipped core into it. If you can’t find this folder on your Mac, hit &lt;code class=&quot;highlighter-rouge&quot;&gt;command+shift+g&lt;/code&gt; and enter the path to the aforementioned directory. Your path might be slightly different depending on which computer you are using. Once you’ve added the unzipped core, you need to re-start Solr. Now, go back to the Solr link in your browser, go to the main console and make sure you see a Blacklight core on the core selector pulldown menu. Select it to activate it.&lt;/p&gt;
+
+&lt;p&gt;Now we can start up the development version of Solr. First, navigate to the directory where the files for GeoBlacklight exist on your local machine and type &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle&lt;/code&gt; to make sure all prerequisites are installed. There seem to be errors here at this point that have to do with having the right version of mysql2 installed. If you’re able to have all of the prerequisites installed, you can move on to starting up the Rails server with this command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rails s &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; 0.0.0.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now the instance is started. Leave the window open. And go to http://localhost:3000. You’re now there.&lt;/p&gt;
+
+&lt;h4 id=&quot;indexing-into-development&quot;&gt;Indexing into development&lt;/h4&gt;
+
+&lt;p&gt;Assuming that you have already installed Solr, we can test index newly created GeoBlacklight records to see if we want them to be in our environment. First, start Solr:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;solr start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, navigate to the Spatial Data Repository folder and start the Rails server. That could be something like:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/git/spatial_data_repository
+&lt;span class=&quot;c&quot;&gt;## this is the sample path. It could be different if you have it installed elsewhere&lt;/span&gt;
+bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rails s &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; 0.0.0.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now that the Rails server and Solr are running on your local machine, confirm that it’s working correctly. Go to &lt;a href=&quot;http://localhost:3000/&quot;&gt;this link&lt;/a&gt; to check. If it all is working you’ll see a GeoBlacklight. Also, make sure that the Terminal window you used to launch this stays open, or else the development instance will shut down.&lt;/p&gt;
+
+&lt;p&gt;Now, we will index the new GeoBlacklight records into our development Solr core. To do this, clone the most current version of the &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; metadata repository on your machine and then place it in the &lt;code class=&quot;highlighter-rouge&quot;&gt;GBL-metadata-development&lt;/code&gt; folder that you have created on your hard drive. You may also want to place other new GeoBlacklight files that you have created into the &lt;code class=&quot;highlighter-rouge&quot;&gt;GBL-metadata-development&lt;/code&gt; folder. All that matters is that there are documents within this folder that end in &lt;code class=&quot;highlighter-rouge&quot;&gt;geoblacklight.json&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The final step is to add in a valid &lt;code class=&quot;highlighter-rouge&quot;&gt;index-records.rb&lt;/code&gt; script into the folder. We have these sitting on our production instance right now, but for reference, you can also download the script in the &lt;a href=&quot;https://github.com/sgbalogh/sdr-documentation/blob/master/ruby-scripts-for-metadata.md&quot;&gt;snippets part of the SDR documentation repository.&lt;/a&gt; &lt;strong&gt;Note that you will have to copy this file to a text editor, modify the variables to match the place(s) on your hard drive, and then save the file within the &lt;code class=&quot;highlighter-rouge&quot;&gt;GBL-metadata-development&lt;/code&gt; folder on your hard drive.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you’ve saved a version in the right place, navigate to the right place within Terminal and run this command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ruby index-records.rb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The script indexes new records. When it’s done, go back to your web version of the development GeoBlacklight. You should be able to see the new records and verify that they work. Search for one of them. If all looks good and there are no damning errors, you’re ready to index into production. Make sure you click on as many elements of records as you can. Try doing spatial searching, making faceted searches, etc. Once you’re ready to go live, make sure that any new metadata items you’re adding are part of the master branch of OpenGeoMetadata.&lt;/p&gt;
+
+&lt;h4 id=&quot;indexing-into-production&quot;&gt;Indexing into production&lt;/h4&gt;
+
+&lt;p&gt;Before running the script to index items into the production instance of Solr, you need to SSH into the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu&lt;/code&gt; server. To do this run:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; /Users/staff/Documents/SDR_Credentials/key-1-jun24-2015.pem ubuntu@metadata.geo.nyu.edu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you’re in this server, make sure that the metadata folder in that server is up to date with the master branch of &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; on OpenGeoMetadata. To do this, &lt;code class=&quot;highlighter-rouge&quot;&gt;git pull&lt;/code&gt; the most recent version of the NYU repository in the OpenGeoMetadata server. To do this, go to the &lt;code class=&quot;highlighter-rouge&quot;&gt;edu.nyu&lt;/code&gt; directory within the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu&lt;/code&gt; server that we’ve SSHd into.&lt;/p&gt;
+
+&lt;p&gt;Once you have all the most current metadata in place, use the script that is located within the folder on the server. You should only have to run this command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ruby index-records.rb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s it! If there are no errors, the records have been loaded. The collection workflow is complete and the records are live in GeoBlacklight, preserved within NYU Libraries, and available to the NYU community, as well as the metadata available to the larger GeoBlacklight community, thus fulfilling the first goal of the &lt;a href=&quot;https://sites.google.com/nyu.edu/stratplan/&quot;&gt;NYU Libraries Strategic Plan.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;appendix-additional-and-optional-steps-to-augment-the-workflow&quot;&gt;Appendix: Additional and optional steps to augment the workflow&lt;/h2&gt;
+
+&lt;p&gt;The process above is the essence of the collection workflow, but there are other miscellaneous commands and projects that can be used at various points. You will also want to check the snippets part of the SDR Documentation repository for additional code snippets and ideas that may be helpful.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-calculating-bounding-boxes-for-solr_geom-field&quot;&gt;a. Calculating bounding boxes for &lt;code class=&quot;highlighter-rouge&quot;&gt;solr_geom&lt;/code&gt; field&lt;/h3&gt;
+
+&lt;p&gt;All GeoBlacklight records require a bounding box. There are a lot of ways to generate this data, but you will probably want to do that automatically if your collection has many kinds of shapefiles or GeoTIFFs that cover many different areas. GDAL is useful for this. &lt;strong&gt;SdrFriend&lt;/strong&gt; provides a wrapper over GDAL, and a utility for generating &lt;code class=&quot;highlighter-rouge&quot;&gt;solr_geom&lt;/code&gt; syntax bounding boxes, given a Shapefile. Note that the Shapefile should be in EPSG:4326 (WGS84) CRS before running the command, so you will have to batch convert the files to the aforementioned coordinate reference system if they aren’t in it already. To locate the geometries for an individual file use this command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rake gdal:bounding[/path/to/file.shp]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or, alternatively, you can use &lt;strong&gt;SdrFriend&lt;/strong&gt; for finding all Shapefiles, recursively, existing within a directory, and have the output printed out for all of them:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rake gdal:bounding_many[/path/to/shapefile_directory]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the values are generated, you can copy them and paste them back into the CSV or Google Sheet you have been using to make the GeoBlacklight metadata.&lt;/p&gt;
+
+&lt;h3 id=&quot;b-removing-ds_store-files&quot;&gt;b. Removing .DS_Store files&lt;/h3&gt;
+
+&lt;p&gt;These files appear if you ever change the way Finder displays things, and they can creep into your repository. Normally you can’t see these files, but git is able to see them, and you have to delete them when making commits. The link that explains this is here.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jonbellah.com/articles/recursively-remove-ds-store&quot;&gt;Removing .DS_Store files&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To delete these files before committing anything to a repository, run this command&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find . -name '.DS_Store' -type f -delete.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The files should be deleted. You can always delete the files manually in GitHub as well.&lt;/p&gt;
+
+&lt;h3 id=&quot;c-putting-the-elements-within-a-batch-of-json-records-into-alphabetical-order&quot;&gt;c. Putting the elements within a batch of JSON records into alphabetical order&lt;/h3&gt;
+
+&lt;h3 id=&quot;d-removing-a-single-element-from-a-batch-of-json-records&quot;&gt;d. Removing a single element from a batch of JSON records.&lt;/h3&gt;
+
+&lt;p&gt;Depending on the nature of the collection upload, you may want to delete a single key from a set of metadata records. Example scenarios could include getting rid of the &lt;code class=&quot;highlighter-rouge&quot;&gt;nyu_addl_format_sm&lt;/code&gt; element if you’re cleaning records from other institutions (and using &lt;strong&gt;SdrFriend&lt;/strong&gt; to do it), getting rid of the &lt;code class=&quot;highlighter-rouge&quot;&gt;dc_creator_sm&lt;/code&gt; key if none of the records in that batch have a creator (for example), getting rid of a field that has been deprecated, etc. If this is what you want to do, you can use the following script:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;require &lt;span class=&quot;s1&quot;&gt;'json'&lt;/span&gt;
+
+collection &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; JSON.parse&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;File.read&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/Users/staff/Downloads/GlobalMap_singlefile.json&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+ &lt;span class=&quot;c&quot;&gt;## put the path to the file where your single file JSON is&lt;/span&gt;
+
+collection.each &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; |record|
+  record.delete&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nyu_addl_format_sm&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;## here, stipulate which field you want to delete&lt;/span&gt;
+end
+
+File.open&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/Users/staff/Downloads/GlobalMap_singlefile.json&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;w&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; |f|
+  f.write&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JSON.pretty_generate&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;collection&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Note that in order for this script to work, your file should not have spaces or numbers in it. Otherwise you are good and we have created the collection.&lt;/p&gt;
+
+&lt;h3 id=&quot;e-updating-records-from-another-institutions&quot;&gt;e. Updating records from another institutions&lt;/h3&gt;
+
+&lt;p&gt;In order to update records from another institution, enter the production folder of the &lt;code class=&quot;highlighter-rouge&quot;&gt;metadata.geo.nyu.edu&lt;/code&gt; server, then enter the folder of the repository you want to update and then hit git pull. This updates the files and adds the NYU specific fields to our production instance. Then, re-run the &lt;code class=&quot;highlighter-rouge&quot;&gt;index-records.rb&lt;/code&gt; script (see above). That’s all you have to do.&lt;/p&gt;
+
+&lt;h3 id=&quot;f-using-the-vector-processing-script-tool-for-actual-data-conversion&quot;&gt;f. Using the &lt;code class=&quot;highlighter-rouge&quot;&gt;vector-processing-script&lt;/code&gt; tool for actual data conversion&lt;/h3&gt;
+
+&lt;p&gt;Now you’re ready to actually convert the files into SQL tables. If you’re reading this documentation, you should also have access to a script located in a &lt;a href=&quot;https://github.com/sgbalogh/sdr-vector-processing&quot;&gt;repository called &lt;code class=&quot;highlighter-rouge&quot;&gt;vector-processing-script&lt;/code&gt;&lt;/a&gt;. This script provides a simple command-line interface to some common data-processing steps. It is essentially just a wrapper on top of GDAL / OGR commands.&lt;/p&gt;
+
+&lt;h4 id=&quot;examples-of-main-commands&quot;&gt;Examples of main commands&lt;/h4&gt;
+
+&lt;p&gt;If the script isn’t working properly, or if you’d prefer some additional control over the conversion-and-upload-to-PostGIS process, these are the main commands to consider:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;## Reproject a Shapefile into EPSG:4326 (WGS84)&lt;/span&gt;
+ogr2ogr &lt;span class=&quot;nt&quot;&gt;-t_srs&lt;/span&gt; EPSG:4326 &lt;span class=&quot;nt&quot;&gt;-lco&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ENCODING&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;UTF-8 output.shp input.shp
+&lt;span class=&quot;c&quot;&gt;#ogr2ogr -t_srs EPSG:4326 -lco ENCODING=UTF-8 nyu_2451_12345_WGS84.shp NYCSchools.shp&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Convert an EPSG:4326 Shapefile into SQL&lt;/span&gt;
+shp2pgsql &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 4326 input.shp input &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; output.sql
+&lt;span class=&quot;c&quot;&gt;#shp2pgsql -I -s 4326 nyu_2451_12345_WGS84.shp nyu_2451_12345 &amp;gt; nyu_2451_12345.sql&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Upload the SQL file to PostGIS&lt;/span&gt;
+psql &lt;span class=&quot;nt&quot;&gt;--host&lt;/span&gt; nyu-geospatial.cfh3iwfzn4xy.us-east-1.rds.amazonaws.com &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;--port&lt;/span&gt; 5432 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;--username&lt;/span&gt; sdr_admin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;--dbname&lt;/span&gt; geospatial_data &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; output.sql
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If you are ever trying to connect to the SQL database from a different machine, you may run into restrictions. In order to run the last command, which connects to PostGIS and attempts to insert the contents of &lt;code class=&quot;highlighter-rouge&quot;&gt;output.sql&lt;/code&gt; as a new table, you will also need to supply the password for the database (and make sure there are no firewall impediments to you connecting directly to the database). See the credentials documentation for more info.&lt;/p&gt;</content><author><name>Andrew Battista and Stephen Balogh</name></author><summary type="html">SDR Collection / Acquisitions Workflow Stephen Balogh sgb334@nyu.edu &amp;amp; Andrew Battista ab6137@nyu.edu</summary></entry><entry><title type="html">Post 4 - The Technology Stack: Amazon Web Services Products</title><link href="http://localhost:4000/geoblacklight/2018/01/12/technology-stack-sdr.html" rel="alternate" type="text/html" title="Post 4 - The Technology Stack: Amazon Web Services Products" /><published>2018-01-12T10:48:45-05:00</published><updated>2018-01-12T10:48:45-05:00</updated><id>http://localhost:4000/geoblacklight/2018/01/12/technology-stack-sdr</id><content type="html" xml:base="http://localhost:4000/geoblacklight/2018/01/12/technology-stack-sdr.html">&lt;p&gt;&lt;em&gt;Ths is the fourth post in a series about the deployment of GeoBlacklight at NYU. It was originally published in January, 2016. For an outline to the series, click &lt;a href=&quot;https://andrewbattista.github.io/geoblacklight/2018/01/09/geoblacklight-overview.html&quot;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;GeoBlacklight itself is simple to deploy, and there are &lt;a href=&quot;http://geoblacklight.org/tutorials.html&quot;&gt;several richly-documented resources on how to do this with Packer, Vagrant, Docker, and other virtual machine tools&lt;/a&gt;. However, the dependencies and entire technology stack behind our Spatial Data Infrastructure is a bit complex, so we hope that insight on specs and installations can help others in their development process. Note that neither the specific cloud-based services nor the way these software platforms relate to each other are necessarily intrinsic to GeoBlacklight. There are many other ways to deploy these tools.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/andrewbattista/andrewbattista.github.io/blob/master/blog_media/aws_logo.png?raw=true&quot; alt=&quot;Amazon Web Services logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Our most important initial decision was to use a cloud computing provider to host the majority of components comprising our geospatial data infrastructure. We ended up using &lt;a href=&quot;https://aws.amazon.com/&quot;&gt;Amazon Web Services&lt;/a&gt;, but many viable competitors to AWS exist as well. Early on, AWS allowed us to prototype and stand up core elements of the stack to develop a good proof of concept, and using cloud infrastructure provided us with the invaluable opportunity to test interconnections between GeoBlacklight and the various other components of the stack. With AWS, it is simple to spin up temporary servers for purposes of testing. It has proven to be very straightforward to scale up directly from our initial prototype.&lt;/p&gt;
+
+&lt;p&gt;At NYU, it became apparent that AWS could be a solution for running spatial data services in production, not just development. So far, we have been able to maintain a high-functioning service at a very reasonable cost, and because we had already had success in our university and within our team with AWS products, we were able to get institutional buy-in quickly.&lt;/p&gt;
+
+&lt;h3 id=&quot;outlining-the-pieces&quot;&gt;Outlining the Pieces&lt;/h3&gt;
+
+&lt;p&gt;First, let’s begin with our spatial data infrastructure as it currently stands.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/sdr-high-level.png&quot; alt=&quot;A diagram of the collection elements&quot; /&gt;
+&lt;em&gt;An overview of the collection architecture. Diagram by Deborah Verhoff, August 21, 2019&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;What started as a series of drawings on a chalkboard ended up as this mostly-correct diagram of our deployment of our Spatial Data Repository. To explain how we stood up these various pieces, we created a table that indexes these parts as they pertain to our collection and service flow. In-depth glosses are below the table.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;SDR Component&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;Documentation&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;AWS Product Used&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;NYU Deployment&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PostGIS Database&lt;/td&gt;
+      &lt;td&gt;Holds reprojected vector data&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;a href=&quot;https://postgis.net/documentation/&quot;&gt;Available here&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;a href=&quot;https://aws.amazon.com/rds/&quot;&gt;RDS&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;unavailable&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Solr&lt;/td&gt;
+      &lt;td&gt;Search index for searches&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;a href=&quot;http://lucene.apache.org/solr/resources.html&quot;&gt;Available here&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;a href=&quot;https://aws.amazon.com/ec2/&quot;&gt;EC2&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;unavailable&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MySQL&lt;/td&gt;
+      &lt;td&gt;Background database for Blacklight&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;Available here&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;RDS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;unavailable&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DSpace&lt;/td&gt;
+      &lt;td&gt;Institutional preservation repository&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;General documentation&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;N/A - on NYU Libraries servers&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;unavailable&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GeoServer&lt;/td&gt;
+      &lt;td&gt;Produces WMS/WFS endpoints &amp;amp; layer previews&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;a href=&quot;http://docs.geoserver.org/&quot;&gt;General documentation&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;EC2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;https://maps-public.geo.nyu.edu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GeoBlacklight&lt;/td&gt;
+      &lt;td&gt;Ruby on Rails discovery environment&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;a href=&quot;https://github.com/NYULibraries/spatial_data_repository&quot;&gt;Available here&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;EC2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;https://geo.nyu.edu&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;postgis-database&quot;&gt;PostGIS Database&lt;/h3&gt;
+
+&lt;p&gt;Our PostGIS database runs on Amazon’s managed &lt;a href=&quot;https://aws.amazon.com/rds/&quot;&gt;relational database service (RDS)&lt;/a&gt;. PostGIS extensions should be added to a default PostgreSQL database by following these instructions. While configuring your database, make sure to create read-only user accounts for GeoServer to use while retrieving vector geometries. At the current moment, we are using PostGIS only for vector data, though it would be possible to store rasters within it as well; we have opted to keep raster data as GeoTIFFs.&lt;/p&gt;
+
+&lt;p&gt;One PostGIS database contains all vector layers, regardless of whether they are Public or Restricted (that distinction only becomes consequential at the GeoServer level for us). We use Amazon’s security groups to restrict traffic to and from this database, for additional protection. Traffic from outside the Virtual Private Cloud may be limited to NYU IP ranges (or another institutional IP range) if there is a desire to allow direct connections. Otherwise, when establishing the PostGIS database, access should be completely restricted to the GeoServer instance(s), as well as a management server.&lt;/p&gt;
+
+&lt;p&gt;We have also experimented with directly connecting to PostGIS from a desktop GIS client (like QGIS). While this is possible, we have gotten better results by making a desktop connection via GeoServer’s WFS.&lt;/p&gt;
+
+&lt;h3 id=&quot;mysql-database-for-blacklight&quot;&gt;MySQL (database for Blacklight)&lt;/h3&gt;
+
+&lt;p&gt;We have chosen to use MySQL as the backend database for Blacklight. A database is required for user data, including bookmarks, etc. within the application. If replicating this, make sure to add gem ‘mysql2’ to your Gemfile, and adjust the appropriate database parameters. Our instance of MySQL also runs on Amazon RDS, and it contains two databases (one for production and one for development).&lt;/p&gt;
+
+&lt;h3 id=&quot;solr&quot;&gt;Solr&lt;/h3&gt;
+
+&lt;p&gt;Solr is the “blazing fast” search engine that powers GeoBlacklight. Since Solr has no user-access restriction measures by default, access to it is highly restricted in our deployment (and we recommend following suit). GeoBlacklight communicates with it directly via the RSolr client. At no time is a user connecting directly to a Solr core via their browser; the queries always go through Blacklight, which handles the Solr connection. Solr is deployed on an EC2 instance, and is fire-walled such that it is only able to communicate with the Rails server and a deployment server that has been designated for handling metadata ingest. We are maintaining production, staging, and development Solr cores, so that we can preview new records before publishing them to the production instance. This is a good strategy for catching errors in metadata records or seeing the effects of large-scale changes in metadata.&lt;/p&gt;
+
+&lt;h3 id=&quot;geoservers&quot;&gt;Geoserver(s)&lt;/h3&gt;
+
+&lt;p&gt;Geoserver is an open-source server for sharing geospatial data, and GeoServer provides two crucial services for us: the WMS and WFS endpoints that GeoBlacklight needs for layer previews and generated layer downloads respectively. We have two instances of GeoServer up, at:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;https://maps-public.geo.nyu.edu&lt;/li&gt;
+  &lt;li&gt;https://maps-restricted.geo.nyu.edu&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both connect directly to the PostGIS database, though the layers enabled by each (and therefore being served) are mutually exclusive, and dependent on the Rights status in the metadata for the records. Layers are enabled and disabled by a Ruby script that runs through GeoBlacklight-schema JSON records, and then connects to the GeoServer REST API. We have separate instances of GeoServer for Public and Restricted data so that we can limit access to the Restricted endpoint to NYU IP address ranges. For users trying to access Restricted data from off-campus, OCLC EZproxy is used to establish a proxy after users authenticate with NYU Single Sign-on.&lt;/p&gt;
+
+&lt;h3 id=&quot;geoblacklight&quot;&gt;GeoBlacklight&lt;/h3&gt;
+
+&lt;p&gt;The SDR currently relies on GeoBlacklight to provide a discovery interface. Our local code modifications to GeoBlacklight core are logged on the production code instance here. GeoBlacklight is a Ruby on Rails application, and we have deployed it on an Ubuntu 14.04 server, hosted on an Amazon Web Services EC2 instance. Phusion Passenger, via Apache, is the Rails web server. HTTPS is forced (this is a requirement of the OmniAuth integration). Here is a helpful set of instructions on how to implement Passenger with Apache on Ubuntu 14.04 (albeit from a different cloud provider).&lt;/p&gt;
+
+&lt;h3 id=&quot;connecting-with-sso&quot;&gt;Connecting with SSO&lt;/h3&gt;
+
+&lt;p&gt;As is the case for many institutions providing access to geospatial data, there are specific license restrictions to much of the data in our collection. The easiest way to mediate access to these protected layers is to set up two instances of GeoServer and gate our restricted instance with NYU’s Single Sign-on service. GeoBlacklight also needs to be aware of user accounts from an institution’s greater SSO environment. Since GeoBlacklight is already built around user models from Devise, we were able to connect to NYU SSO by using an OmniAuth strategy for &lt;a href=&quot;https://rubygems.org/gems/devise/versions/4.2.0&quot;&gt;Devise&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;final-words&quot;&gt;Final Words&lt;/h3&gt;
+
+&lt;p&gt;We are happy to answer any specific question about the deployment of these platforms. Also note that as elements of NYU Libraries production practices change, several minor changes may be made.&lt;/p&gt;</content><author><name>Andrew Battista and Stephen Balogh</name></author><summary type="html">Ths is the fourth post in a series about the deployment of GeoBlacklight at NYU. It was originally published in January, 2016. For an outline to the series, click here.</summary></entry><entry><title type="html">Post 3 - Creating GeoBlacklight Metadata Records</title><link href="http://localhost:4000/geoblacklight/2018/01/11/creating-geoblacklight-metadata.html" rel="alternate" type="text/html" title="Post 3 - Creating GeoBlacklight Metadata Records" /><published>2018-01-11T10:48:45-05:00</published><updated>2018-01-11T10:48:45-05:00</updated><id>http://localhost:4000/geoblacklight/2018/01/11/creating-geoblacklight-metadata</id><content type="html" xml:base="http://localhost:4000/geoblacklight/2018/01/11/creating-geoblacklight-metadata.html">&lt;p&gt;&lt;em&gt;This is the third in a series of posts on the development of GeoBlacklight at NYU. It was originally published in January 2016. For an outline to the posts, click &lt;a href=&quot;https://andrewbattista.github.io/geoblacklight/2018/01/09/geoblacklight-overview.html&quot;&gt;here.&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;about-geospatial-metadata&quot;&gt;About Geospatial Metadata&lt;/h3&gt;
+
+&lt;p&gt;The 2016 Geo4LibCamp un-conference at Stanford was filled with incredible discussions about the challenges of developing a spatial data infrastructure and wrangling metadata into a form that works with GeoBlacklight. More than any other issue, creating and managing geospatial metadata occupied people’s attention. How can we make GeoBlacklight metadata efficiently? How compliant with existing standards should it be? And are there easy ways to leverage the metadata generated by other institutions to bolster one’s own collection? In this post, we are going to talk a little bit about how we’ve been addressing these questions at NYU.&lt;/p&gt;
+
+&lt;h3 id=&quot;about-geoblacklight-metadata&quot;&gt;About GeoBlacklight Metadata&lt;/h3&gt;
+
+&lt;p&gt;As they developed the GeoBlacklight project, Stanford’s librarians &lt;a href=&quot;http://journal.code4lib.org/articles/9710&quot;&gt;implemented a custom GeoBlacklight metadata schema&lt;/a&gt; to facilitate the discovery of geospatial data. The schema is closely related to Dublin Core and is a redaction of much longer and more granular geospatial metadata standards, most notably &lt;a href=&quot;https://www.iso.org/standard/57104.html&quot;&gt;ISO 191xx&lt;/a&gt; and &lt;a href=&quot;https://www.fgdc.gov/metadata/geospatial-metadata-standards&quot;&gt;FGDC&lt;/a&gt;. In terms of building collections, there are several key challenges to producing metadata records that conform to these standards. To start, they are difficult to author from scratch and difficult to edit or transform. Worse, it’s unrealistic to expect non-experts or researchers who would like to contribute geospatial data to create or alter ISO or FGDC-compliant metadata records themselves. John Huck’s tweet from the conference sums it up.&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/Geo4LibCamp?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#Geo4LibCamp&lt;/a&gt; day 2: uncontroversial view: ISO is too heavy&lt;/p&gt;&amp;mdash; John Huck (@jhuck_AB) &lt;a href=&quot;https://twitter.com/jhuck_AB/status/692088768585687041?ref_src=twsrc%5Etfw&quot;&gt;January 26, 2016&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The great intervention of GeoBlacklight metadata is that it implies a distinction between metadata for documentation or posterity and metadata for the sake of discovery. In short, GeoBlacklight is a minimalist conflation of several geospatial metadata standards and technological interfaces, especially &lt;a href=&quot;http://lucene.apache.org/solr/&quot;&gt;Apache Solr&lt;/a&gt;. You need a search index to make a GeoBlacklight instance “work.” Thus, even though it is a reduced standard, you still need to find efficient ways of generating GeoBlacklight metadata records if you want to develop a discovery interface for a collection of spatial data.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-does-geoblacklight-metadata-work&quot;&gt;How does GeoBlacklight Metadata Work?&lt;/h3&gt;
+
+&lt;p&gt;GeoBlacklight (the application) is inextricable from the metadata behind it. This may sounds like a simplistic statement to those who are used to working with discovery systems in libraries, but for us, it was an epiphany and an important part of understanding how GeoBlacklight functions. For those who haven’t seen it, here’s a breakdown of the main elements in a GeoBlacklight metadata record:&lt;/p&gt;
+
+&lt;p&gt;The schema incorporates key elements needed for discovery, including subject, place name &lt;code class=&quot;highlighter-rouge&quot;&gt;dct:spatial&lt;/code&gt; and file type. There are additional elements as well that pertain to the spatial discovery and Solr index, as seen in this sample GeoBlacklight record.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{&quot;&gt;  &quot;dc_identifier_s&quot;: &quot;http://hdl.handle.net/2451/34506&quot;,
+  &quot;dc_title_s&quot;: &quot;2012 New York City Train Stations&quot;,
+  &quot;dc_description_s&quot;: &quot;This point layer is an extract from the Metropolitan Transportation Authority's (MTA) stops files for Metro North and the Long Island Railroad (LIRR) that have been combined to create one train station file for the entire city. The unique ID is rail_id, a field created by attaching a railroad prefix for either Metro North or the LIRR to numbers created by the MTA. This layer was created as part of the NYC Geodatabase (NYC GDB) project, a resource designed for basic geographic analysis and thematic mapping within the five boroughs of New York City.&quot;,
+  &quot;dc_rights_s&quot;: &quot;Public&quot;,
+  &quot;dct_provenance_s&quot;: &quot;Baruch CUNY&quot;,
+  &quot;dct_references_s&quot;: &quot;{\&quot;http://schema.org/url\&quot;:\&quot;http://hdl.handle.net/2451/34506\&quot;,\&quot;http://schema.org/downloadUrl\&quot;:\&quot;https://archive.nyu.edu/retrieve/74705/nyu_2451_34506.zip\&quot;,\&quot;http://www.opengis.net/def/serviceType/ogc/wfs\&quot;:\&quot;https://maps-public.geo.nyu.edu/geoserver/sdr/wfs\&quot;,\&quot;http://www.opengis.net/def/serviceType/ogc/wms\&quot;:\&quot;https://maps-public.geo.nyu.edu/geoserver/sdr/wms\&quot;,\&quot;http://www.isotc211.org/schemas/2005/gmd/\&quot;:\&quot;http://metadata.geo.nyu.edu/records/edu.nyu/handle/2451/34506/iso19139.xml\&quot;,\&quot;http://lccn.loc.gov/sh85035852\&quot;:\&quot;https://archive.nyu.edu/retrieve/74759/nyu_2451_34506_doc.zip\&quot;}&quot;,
+  &quot;layer_id_s&quot;: &quot;sdr:nyu_2451_34506&quot;,
+  &quot;layer_slug_s&quot;: &quot;nyu_2451_34506&quot;,
+  &quot;layer_geom_type_s&quot;: &quot;Point&quot;,
+  &quot;layer_modified_dt&quot;: &quot;2016-5-2T18:21:4Z&quot;,
+  &quot;dc_format_s&quot;: &quot;Shapefile&quot;,
+  &quot;dc_language_s&quot;: &quot;English&quot;,
+  &quot;dc_type_s&quot;: &quot;Dataset&quot;,
+  &quot;dc_publisher_s&quot;: [
+    &quot;Newman Library (Bernard M. Baruch College)&quot;
+  ],
+  &quot;dc_creator_sm&quot;: &quot;GIS Lab, Newman Library, Baruch CUNY&quot;,
+  &quot;dc_subject_sm&quot;: [
+    &quot;Transportation&quot;,
+    &quot;Railroads&quot;,
+    &quot;Railroad stations&quot;
+  ],
+  &quot;dct_isPartOf_sm&quot;: &quot;NYC Geodatabase (version jan2016)&quot;,
+  &quot;dct_issued_s&quot;: &quot;1/15/2016&quot;,
+  &quot;dct_temporal_sm&quot;: [
+    &quot;2012&quot;
+  ],
+  &quot;dct_spatial_sm&quot;: [
+    &quot;New York City, New York, United States&quot;,
+    &quot;Bronx County, New York, United States&quot;,
+    &quot;Kings County, New York, United States&quot;,
+    &quot;New York County, New York, United States&quot;,
+    &quot;Queens County, New York, United States&quot;,
+    &quot;Borough of Bronx, New York, United States&quot;,
+    &quot;Borough of Brooklyn, New York, United States&quot;,
+    &quot;Borough of Manhattan, New York, United States&quot;,
+    &quot;Borough of Queens, New York, United States&quot;
+  ],
+  &quot;solr_geom&quot;: &quot;ENVELOPE(-73.99358, -73.72862, 40.9054239999998, 40.6091299999998)&quot;,
+  &quot;solr_year_i&quot;: 2012,
+  &quot;dct_source_sm&quot;: [
+    &quot;nyu_2451_34635&quot;,
+    &quot;nyu_2451_34636&quot;
+  ],
+  &quot;geoblacklight_version&quot;: &quot;1.0&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Although Darren Hardy and Kim Durante explain what each element in the set means in their &lt;em&gt;Code4Lib&lt;/em&gt; article, a few of them need more commentary. The &lt;code class=&quot;highlighter-rouge&quot;&gt;dct:references&lt;/code&gt; field accords with a key-value schema, which accounts for multiple elements that get exposed in the GeoBlacklight interface. For instance, the &lt;code class=&quot;highlighter-rouge&quot;&gt;http://schema.org/url&lt;/code&gt; key links back to the archival copy of the data in NYU’s institutional repository (the FDA). Simply put, whatever URL you place in the record after the &lt;code class=&quot;highlighter-rouge&quot;&gt;http://schema.org/url&lt;/code&gt; key is the value (in this case a link to a record) that will be prominent on the item result within GeoBlacklight. Similarly, the &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.opengis.net/def/serviceType/ogc/wfs&lt;/code&gt; key links to the URL specific to our deployment of Geoserver, which allows for the map to be previewed and downloaded in multiple formats within GeoBlacklight. See &lt;a href=&quot;https://github.com/geoblacklight/geoblacklight/wiki/Schema#external-services&quot;&gt;this document&lt;/a&gt; for a full outline of possible external services references that have been implemented thus far.&lt;/p&gt;
+
+&lt;p&gt;The other important element in this set is the &lt;code class=&quot;highlighter-rouge&quot;&gt;dct:spatial field&lt;/code&gt;. The value of this field is always a string that comes from the &lt;a href=&quot;http://geonames.org&quot;&gt;GeoNames&lt;/a&gt; ontology, but there are other items in each GeoNames entry that propagate elsewhere in the metadata record. Specifically, from this entry, you can take the &lt;code class=&quot;highlighter-rouge&quot;&gt;dct:relation&lt;/code&gt; field values and the &lt;code class=&quot;highlighter-rouge&quot;&gt;georss_box&lt;/code&gt; values if you want to base the extant coordinates on that information. We won’t continue to belabor the anatomy of GeoBlacklight metadata records here. Suffice it to say that while simpler and more compact than most geospatial metadata standards, GeoBlacklight still requires some work to author.&lt;/p&gt;
+
+&lt;h3 id=&quot;ways-of-authoring-metadata&quot;&gt;Ways of Authoring Metadata&lt;/h3&gt;
+
+&lt;p&gt;There are multiple ways to author GeoBlacklight metadata, some of which were covered in detail during workshops at &lt;a href=&quot;http://tiny.cc/geo4lib2017&quot;&gt;the 2017 Geo4LibCamp&lt;/a&gt;, the &lt;a href=&quot;http://tiny.cc/dlfmetadata&quot;&gt;2015 Digital Library Federation&lt;/a&gt;, and elsewhere. Kim Durante uses a combination of editing with ESRI’s ArcCatalog and transforming existing ISO or FGDC metadata documents (in XML format) with a series of XSLT workflows. Other librarians build upon these transforms and patch them together with metadata alterations in ArcCatalog, while others, such as the &lt;a href=&quot;https://geo.btaa.org/about&quot;&gt;Big Ten Academic Alliance&lt;/a&gt;, use GeoNetwork to generate metadata that becomes GeoBlacklight compliant. In short, there is no perfect way to create GeoBlacklight metadata from scratch, and it inevitably requires a lot of work.&lt;/p&gt;
+
+&lt;p&gt;At NYU, we’ve begun deploying a somewhat hacked version of &lt;a href=&quot;https://omeka.org/&quot;&gt;Omeka&lt;/a&gt; to generate GeoBlacklight metadata from scratch. Omeka is a great tool because it allows us to mediate the metadata creation process in several different ways. Most people have encountered Omeka as a archive web publishing platform; we are not using it as such. It’s a means to and end, and that end is getting GeoBlacklight metadata to index into our instance of GeoBlacklight. We delivered a presentation to the OpenGeoPortal Metadata Working Group on January 12, 2016 about our process with Omeka. &lt;a href=&quot;https://docs.google.com/document/d/1H_p6eZYyK0ASZdN3hEtHGZ1z8reQ5b69PUVlFNHBECU/edit&quot;&gt;Slides and recording are available here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-omeka-does&quot;&gt;What Omeka Does&lt;/h3&gt;
+
+&lt;p&gt;We’re going to ease up on the blow-by blow description of Omeka in this post and encourage you to listen to the recording and look at the slides. However, here are a few summary points. The most important part of Omeka is that it allows us to call on existing APIs to promote authority control as we catalog GIS data. In particular, the GeoNames ontology, which has a robust API, can populate other relevant parts of the record just by having a person select a unique place name. In cases where we want to encourage multiple values for enhanced discovery (i.e., Library of Congress Subject Headings), users can easily add fields to account for multiple values. Finally, and most importantly, Omeka exports records in the .json format we need to index into GeoBlacklight.&lt;/p&gt;
+
+&lt;p&gt;There are other benefits as well, including the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Batch Uploads:&lt;/strong&gt; Like other institutions, we tend to collect items in batches or sets, and in many cases, much of the metadata is consistent and easily replicated. An example is &lt;a href=&quot;https://geo.nyu.edu/?f%5Bdc_publisher_s%5D%5B%5D=ML+InfoMap+%28Firm%29&amp;amp;f%5Bdct_provenance_s%5D%5B%5D=NYU&quot;&gt;India Census Data from ML InfoMap&lt;/a&gt;. Using a CSV, we can populate all of the relevant fields on a spreadsheet and then use the Batch Import plug-in to load files into Omeka.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Customizations of User Interface:&lt;/strong&gt; We’ve altered the element prompts to provide people with clear instructions that help them fill out the record from scratch. Our goal here is to anticipate a self-deposit form function.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ability to Distribute Accounts:&lt;/strong&gt; We often have student workers, of varying levels of engagement and commitment, who have extra time to help with GIS metadata creation. Omeka serves as an effective way to collaborate on larger-scale project, and its ease of use allows student workers to log in and enrich bare-bones metadata, for instance. It’s very easy to create accounts and passwords and give them to students, researchers, or whoever. No other library systems are implicated.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ve created a practice user account for Omeka, and we invite anyone in the community to give it a shot. Just send us an e mail for the credentials. Further, the GeoBlacklight plug-in is housed on &lt;a href=&quot;https://github.com/sgbalogh/omeka_GeoBlacklightMetadata-JSON&quot;&gt;Stephen’s GitHub account&lt;/a&gt; and is available for anyone to download (although you will need to alter the code base to have it conform to your institution).&lt;/p&gt;
+
+&lt;h3 id=&quot;alternative-tools-for-authoring-metadata&quot;&gt;Alternative Tools for Authoring Metadata&lt;/h3&gt;
+
+&lt;p&gt;Although Omeka has worked well for us so far, we don’t imagine it to be a long-term solution to creating GeoBlacklight metadata. There are other options, like &lt;a href=&quot;http://www.iassistdata.org/downloads/2015/2015_poster_moss.pdf&quot;&gt;Elevator&lt;/a&gt; (now defunct?) and &lt;a href=&quot;http://librecat.org/Catmandu/&quot;&gt;Catmandu&lt;/a&gt;, and more that show promise. We hope that more streamlined options will become available and are even working on a homegrown, longterm solution that we can incorporate into our infrastructure.&lt;/p&gt;
+
+&lt;h3 id=&quot;depositing-into-opengeometadata&quot;&gt;Depositing into OpenGeoMetadata&lt;/h3&gt;
+
+&lt;p&gt;The final step of our metadata creation process is sharing. We have chosen to push all of our GeoBlacklight metadata records into &lt;a href=&quot;https://github.com/OpenGeoMetadata&quot;&gt;OpenGeoMetadata&lt;/a&gt;, a consortium of repository records  OpenGeoMetadata, which is managed by Jack Reed at Stanford University.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://avatars1.githubusercontent.com/u/9597563?s=200&amp;amp;v=4&quot; alt=&quot;OpenGeoMetadata logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Essentially, OpenGeoMetadata is a series of GitHub repositories, from which anyone can index records into a local instance of GeoBlacklight. The goal is to facilitate cross-institution collaboration and collectively grow the amount of geospatial data that can be discovered with a single search. From each repository, administrators can index a set of GeoBlacklight records into their Solr core, and the items will be prominent within the application. If you’re interested in contributing to OpenGeoMetadata, get in touch with Jack Reed.&lt;/p&gt;
+
+&lt;h3 id=&quot;next-steps-for-the-geoblacklight-community&quot;&gt;Next steps for the GeoBlacklight community&lt;/h3&gt;
+
+&lt;p&gt;The 2016 Geo4LibCamp at Stanford was an unqualified success because we learned so much about making geospatial metadata, but also because we were able to crystallize some areas for improvement. The first area is that we need to foster best-practices for generating GeoBlacklight metadata in the community. Ultimately, the creation of GeoBlacklight metadata is a user experience issue; unless metadata is created according to a consistent standard of completeness, the application will behave differently depending on which record is accessed. We are excited to see how the community continues to handle these challenges.&lt;/p&gt;</content><author><name>Andrew Battista and Stephen Balogh</name></author><summary type="html">This is the third in a series of posts on the development of GeoBlacklight at NYU. It was originally published in January 2016. For an outline to the posts, click here.</summary></entry><entry><title type="html">Post 2 - DSpace and the Preservation Repository</title><link href="http://localhost:4000/geoblacklight/2018/01/10/preservation.html" rel="alternate" type="text/html" title="Post 2 - DSpace and the Preservation Repository" /><published>2018-01-10T10:48:45-05:00</published><updated>2018-01-10T10:48:45-05:00</updated><id>http://localhost:4000/geoblacklight/2018/01/10/preservation</id><content type="html" xml:base="http://localhost:4000/geoblacklight/2018/01/10/preservation.html">&lt;p&gt;&lt;em&gt;This is the second in a series of posts on the development of GeoBlacklight at New York University. To see the first post and an overview of the series, visit &lt;a href=&quot;https://andrewbattista.github.io/geoblacklight/2018/01/10/geoblacklight-overview.html&quot;&gt;here&lt;/a&gt;. The post was originally published in January 2016.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;the-role-of-an-institutional-repository-in-building-collections&quot;&gt;The role of an institutional repository in building collections&lt;/h3&gt;
+
+&lt;p&gt;In the first post, we provided an overview of our collection process and technical infrastructure. Now, we begin our narrative with the first step: preservation within an institutional repository. Although we are not experts on the landscape of library repositories, we recognized early on that many schools are developing multi-purpose, centralized environments that attend to the interconnected needs of storage, preservation, versioning, and discovery. Furthermore, when it comes to collecting born-digital objects, every institution exists somewhere on a continuum of readiness. Some have a systematic, well-orchestrated approach to collecting digital objects and media of many kinds, while others have only a partially developed sense of how archival collections and other &lt;em&gt;ad hoc&lt;/em&gt; born-digital items should exist within traditional library collections.&lt;/p&gt;
+
+&lt;p&gt;Stanford University is at the former end, it seems. The &lt;a href=&quot;https://sdr.stanford.edu/&quot;&gt;Stanford Digital Repository (SDR)&lt;/a&gt; is a multifaceted, libraries-based repository that allows for both collections (including archival materials, data, and spatial data) and researcher-submitted contributions (including publications and research data) to be housed together. Their &lt;a href=&quot;https://library.stanford.edu/research/stanford-digital-repository&quot;&gt;repository&lt;/a&gt; attends to preservation, adopts a metadata standard, &lt;a href=&quot;http://www.loc.gov/standards/mods/&quot;&gt;MODS&lt;/a&gt;, for all items, and imagines clear ways for content to be included within a larger discovery environment, &lt;a href=&quot;https://searchworks.stanford.edu&quot;&gt;SearchWorks&lt;/a&gt;. The SDR suggests a unifying process for providing access to many disparate forms of knowledge, some of which are accompanied by complex technological needs, and it facilitates the exposure of such items in ways that are useful to scholars and researchers of all kinds. See also the &lt;a href=&quot;https://purr.purdue.edu/&quot;&gt;Purdue University Research Repository (PURR)&lt;/a&gt; for another good example of this model.&lt;/p&gt;
+
+&lt;p&gt;NYU is near the other end of this continuum of readiness, although this is changing with the advancement of our &lt;a href=&quot;https://wp.nyu.edu/library-drsr/&quot;&gt;Research Cloud Services project&lt;/a&gt;. The closest thing we have currently is our &lt;a href=&quot;https://archive.nyu.edu&quot;&gt;Faculty Digital Archive (FDA)&lt;/a&gt;, which is an instance of &lt;a href=&quot;http://www.dspace.org/&quot;&gt;DSpace&lt;/a&gt;. As the name implies, the FDA was conceived as a landing-place for individual faculty research, such as dissertations, electronic versions of print publications, and other items. &lt;img src=&quot;https://github.com/andrewbattista/andrewbattista.github.io/blob/master/blog_media/dspace_logo.png?raw=true&quot; alt=&quot;DSpace logo&quot; /&gt; More recently, we have started deploying it as a place to host and mediate purchased data collections for the NYU community, and we are encouraging researchers to submit their data as a way of fulfilling grant data management plan requirements. These uses anticipate the kind of function of the Stanford Data Repository, even if we haven’t arrived yet.&lt;/p&gt;
+
+&lt;h3 id=&quot;overview-of-dspace-and-other-options&quot;&gt;Overview of Dspace and other options&lt;/h3&gt;
+
+&lt;p&gt;Although NYU’s institutional repository status is in flux, we decided to begin with the FDA (DSpace) as we developed our spatial data infrastructure. In this case, it was a good decision to work within a structure that already existed locally. Fortunately, the specific tool used in the preservation component of the collection workflow is the least connected to GeoBlacklight of all our project components, which means it can be altered as larger changes take place within an institution. There are other options available aside from DSpace, most notably the &lt;a href=&quot;https://samvera.org/&quot;&gt;Samvera project&lt;/a&gt;, a growing community that develops a robust range of resources for the preservation, presentation, and access of data. We won’t belabor this point, other than to say that if you’re working within a context that has no preservation repository in place, it is highly advisable to stand up an instance of DSpace, Samvera, or some other equivalent before beginning collection efforts.&lt;/p&gt;
+
+&lt;h3 id=&quot;collection-principles&quot;&gt;Collection Principles&lt;/h3&gt;
+
+&lt;p&gt;The concept of a preservation repository spurred our thinking about some important collection development principles at the onset. The first and most obvious is that preservation is vital. Agencies release data periodically, retract old files, and produce new ones. Data comes and goes, and for the sake of stability and posterity, it is incumbent on those creating access to data to be vested in the preservation of it as well. Thus, we will make an effort to preserve all data that we acquire, including public data.&lt;/p&gt;
+
+&lt;p&gt;Second, the repository concept demanded that we make a decision regarding the level of data at which we would collect. In other words, the concept forced us to define what constitutes a “digital object” and plan accordingly. For many reasons, we decided that the individual shapefile or feature class layer is the level at which we would collect. The layer as an object corresponds with the level of operation intrinsic to every GIS software, and it’s the way that data is already organized in the field. What this does mean, for instance, is that we will not create a single item record that bundles multiple shapefiles from a set or a collection. With only a few exceptions, there is a 1:1 correlation between each layer and each unique ID.&lt;/p&gt;
+
+&lt;h3 id=&quot;adding-non-conventional-documentation-or-metadata&quot;&gt;Adding Non-conventional Documentation or Metadata&lt;/h3&gt;
+
+&lt;p&gt;Beginning our collection by preserving a “copy of record” in the FDA also gave us the space and flexibility to pair proprietary data with its original documentation, particularly in cases in which documentation comes in haphazard or unwieldy forms. This &lt;a href=&quot;http://hdl.handle.net/2451/33916&quot;&gt;record of 2010 China Coastlines and Islands&lt;/a&gt; is a good example.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/andrewbattista/andrewbattista.github.io/blob/master/blog_media/2010_china_coastlines_shot.png?raw=true&quot; alt=&quot;view of China Data record&quot; /&gt;
+&lt;em&gt;A screenshot of an item in the FDA that is also in our spatial data repository.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We purchased this set from the &lt;a href=&quot;http://chinadatacenter.org/Data/ServiceContent.aspx?id=58&quot;&gt;University of Michigan China Data Center&lt;/a&gt;, and the files came with a rudimentary Excel spreadsheet and an explanation of the layer titles and meanings. Rather than trying to transform that spreadsheet into a conventional metadata format, we just uploaded the spreadsheet with the item record. Now, when the data layer is discovered, users have a direct pathway back to original documentation by clicking on the preservation record copy. In later iterations of the GeoBlacklight schema, documentation can be manifest on the tools layer by adding a valid URL in the &lt;strong&gt;dct_references&lt;/strong&gt; field.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-chicken-egg-conundrum&quot;&gt;The Chicken-Egg Conundrum&lt;/h3&gt;
+
+&lt;p&gt;The final (and most important) role of the repository model is that it generates a unique identifier which marks data in multiple places within the metadata schema and the technology stack behind it. This identifier applies to the item record in the repository, the layer in Geoserver, and the data file itself. However, given the workflow inherent in our process of collecting, the need for a unique identifier creates a classic &lt;a href=&quot;https://en.wikipedia.org/wiki/Chicken_or_the_egg&quot;&gt;chicken-egg&lt;/a&gt; scenario. In order to acquire an item, an item ID is required to create a metadata record for said item, yet without having made a “digital space” to store the item, we would not have the requisite “information” (i.e., the unique identifier) to create a metadata record for it. This is an easy problem to solve. We create an item in DSpace, get the unique identifier (the handle address), and then plug it into the GeoBlacklight metadata record. But as an ontological challenge and a workflow challenge, the process for generating unique identifiers can be something to think about.&lt;/p&gt;
+
+&lt;h3 id=&quot;brief-snapshot-of-the-collection-model&quot;&gt;Brief Snapshot of the Collection Model&lt;/h3&gt;
+
+&lt;p&gt;At this point, it makes sense to introduce one of our first project diagrams: a hand-drawn overview of our architecture and collection model. The section in the red box is what’s pertinent here.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/sdr_architecture_nyu.png&quot; alt=&quot;A diagram of the collection elements&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;An overview of NYU’s spatial data infrastructure&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The collection process is follows. The decision to collect happens, and we add an item in the FDA, which generates a unique ID (a handle). Note that we have created two distinct collections within our DSpace: a &lt;a href=&quot;https://archive.nyu.edu/handle/2451/33902&quot;&gt;collection for unrestricted data&lt;/a&gt; and a &lt;a href=&quot;https://archive.nyu.edu/handle/2451/33903&quot;&gt;separate collection for private, restricted data&lt;/a&gt;. The generated handle, in turn, is integrated into several places in the GeoBlacklight metadata record, including the dct_references field, which triggers the direct file download within the GeoBlacklight application. We preserve both the “copy of record” and a re-projected version of the file on the same item record in the institutional repository, a decision we will explain later when we talk about the technology stack behind the project.&lt;/p&gt;
+
+&lt;h3 id=&quot;batch-imports&quot;&gt;Batch Imports&lt;/h3&gt;
+
+&lt;p&gt;Ingesting records at the batch level is possible thanks to the &lt;a href=&quot;https://wiki.duraspace.org/display/DSDOC5x/REST+API&quot;&gt;DSpace 5.x REST API&lt;/a&gt;. We simply count up how many total layers we want to import, generate that many handles, and then later go back and use a CSV to import the minimal metadata and data files themselves.&lt;/p&gt;
+
+&lt;h3 id=&quot;on-using-a-third-party-unique-identifier&quot;&gt;On using a Third-Party Unique Identifier&lt;/h3&gt;
+
+&lt;p&gt;At various points in time during this project, we thought about the benefits of using a third-party persistent link generator in order to facilitate the collection process and mitigate the chicken-egg problematic. Fortunately, GeoBlacklight metadata is capacious enough to allow for several different kinds of unique identifier services. Stanford uses &lt;a href=&quot;https://purl.org/docs/index.html&quot;&gt;PURL&lt;/a&gt;, others use &lt;a href=&quot;https://confluence.ucop.edu/display/Curation/ARK&quot;&gt;ARK&lt;/a&gt;, while still others use DOIs. We’ve chosen to remain with the unique ID minted by DSpace, at least for now.&lt;/p&gt;
+
+&lt;h3 id=&quot;up-next-creating-geoblacklight-metadata-records&quot;&gt;Up Next: Creating GeoBlacklight Metadata Records&lt;/h3&gt;
+
+&lt;p&gt;Everything we’ve discussed regarding preservation within an institutional repository is not directly implicated in the application of GeoBlacklight itself. However, it should go without saying that these preservation steps are the foundation of our spatial data infrastructure and help with the deployment of GeoBlacklight. In the next post, we will discuss the many ways to generate GeoBlacklight metadata as we collect spatial data.&lt;/p&gt;</content><author><name>Andrew Battista and Stephen Balogh</name></author><summary type="html">This is the second in a series of posts on the development of GeoBlacklight at New York University. To see the first post and an overview of the series, visit here. The post was originally published in January 2016.</summary></entry><entry><title type="html">Post 1 - GeoBlacklight at NYU: A Project Overview</title><link href="http://localhost:4000/geoblacklight/2018/01/09/geoblacklight-overview.html" rel="alternate" type="text/html" title="Post 1 - GeoBlacklight at NYU: A Project Overview" /><published>2018-01-09T10:48:45-05:00</published><updated>2018-01-09T10:48:45-05:00</updated><id>http://localhost:4000/geoblacklight/2018/01/09/geoblacklight-overview</id><content type="html" xml:base="http://localhost:4000/geoblacklight/2018/01/09/geoblacklight-overview.html">&lt;p&gt;&lt;em&gt;This post was originally published in January 2016 and was designed to be a guide for setting up a Spatial Data Infrastructure using GeoBlacklight. I’ve placed them here and have made slight updates to reflect recent developments in our project and other projects surrounding this one at NYU.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;getting-started-with-geoblacklight&quot;&gt;Getting Started with GeoBlacklight&lt;/h3&gt;
+
+&lt;p&gt;In January, 2016, the GIS team at NYU’s Data Services released an &lt;a href=&quot;https://geo.nyu.edu&quot;&gt;advanced beta version of GeoBlacklight&lt;/a&gt;, a search and discovery platform for geospatial data. This release comes after a year of developing a spatial data infrastructure (SDI) that includes a holistic model for discovery, storage, and preservation of spatial data. NYU’s instance of GeoBlacklight allows users to preview layers, explore attribute tables associated with points and geometries, export datasets directly into &lt;a href=&quot;https://carto.com&quot;&gt;Carto&lt;/a&gt;, and download data in Shapefile, KML, or GeoJSON format.&lt;/p&gt;
+
+&lt;p&gt;This is the first in a series of posts on developing a SDI that features GeoBlacklight as a discovery mechanism. These posts describe our previous year at NYU, a time in which we went from having almost no familiarity with GeoBlacklight to instituting a near-production level spatial data infrastructure.&lt;/p&gt;
+
+&lt;p&gt;GeoBlacklight at NYU is part of a larger spatial data infrastructure and is based on the work of Stanford University Libraries. Stanford released &lt;a href=&quot;https://earthworks.stanford.edu/&quot;&gt;Earthworks&lt;/a&gt;, a local deployment of GeoBlacklight, in 2015, and the university’s spatial data exists within a larger context of an institutional repository, or the &lt;a href=&quot;https://sdr.stanford.edu/&quot;&gt;Stanford Digital Repository&lt;/a&gt;. Many thanks to &lt;a href=&quot;https://www.jack-reed.com/&quot;&gt;Jack Reed&lt;/a&gt;, Darren Hardy, &lt;a href=&quot;https://twitter.com/eosadler&quot;&gt;Bess Sadler&lt;/a&gt;, and &lt;a href=&quot;https://twitter.com/kimtruck&quot;&gt;Kim Durante&lt;/a&gt; at Stanford and &lt;a href=&quot;https://library.princeton.edu/staff/eliotj&quot;&gt;Eliot Jordan&lt;/a&gt; at Princeton. They have been more than generous in sharing their progress and advice with us.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/NYU%20Spatial%20Data%20Repository%20screenshot.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Additionally, throughout the year we have participated in and co-led several sessions on GeoBlacklight metadata, including a &lt;a href=&quot;httP;//tiny.cc/dlfmetadata&quot;&gt;workshop at the 2015 DLF&lt;/a&gt;. Still, we wanted to detail as much of our narrative as possible, both for the benefit of people within our own institution and for others who are developing spatial data infrastructures at their own institutions. We’ve found that while &lt;a href=&quot;http://geoblacklight.org/tutorials.html&quot;&gt;very good documentation on deploying GeoBlacklight exists&lt;/a&gt;, there is less information about the parts of the collection workflow that surround GeoBlacklight, or on the ways in which a spatial data collection can be integrated into the environment of larger library collections, or what Durante and Hardy &lt;a href=&quot;https://doi.org/10.1080/15420353.2015.1041630&quot;&gt;call “durable, digital library assets”&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, we must start with a disclaimer. We do not mean to insinuate that we have discovered the only or best way to facilitate spatial data collections or to author metadata; instead, much of this narrative represents a project that is still in process. We just want to share what has worked for us and encourage others in the GeoBlacklight community to develop with GeoBlacklight. We would also like to solicit feedback from the broader GIS and library technology community, particularly those who are attending the &lt;a href=&quot;https://geo4libcamp2016.sched.org/&quot;&gt;2016 Geo4Lib meeting at Stanford University&lt;/a&gt;. Also, &lt;a href=&quot;https://geo4libcamp2016.sched.org/&quot;&gt;click here for the 2018 meeting schedule&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;background-at-nyu&quot;&gt;Background at NYU&lt;/h3&gt;
+
+&lt;p&gt;Prior to the deployment of GeoBlacklight, NYU provided access to collected geospatial datasets in two ways. While on campus, users could connect directly from ArcMap or QGIS to an Oracle database, which stored our collection. Additionally, a simple web interface allowed NYU users (either on or off campus) to browse text-only representations of the datasets within the library’s collections, and download zipped shapefiles. Given the configuration of the system, very little metadata was exposed to the user on the web interface (and virtually none in the direct-connection method). Thus, users also had no ability to do a spatial search, preview a layer (graphically or by querying datafields), or download data in a format other than a shapefile.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, it became highly impractical to add new spatial data to our collection, as we had no immediate access to the Oracle database. And what little spatial data collection that had taken place existed largely outside of the flow for collecting and discovering other born-digital items at NYU. Given the interest in developing a more feature-rich GIS discovery platform, which coalesces with NYU’s ongoing &lt;a href=&quot;https://wp.nyu.edu/library-drsr/&quot;&gt;Research Cloud Services&lt;/a&gt; project, we started considering options for building the requisite infrastructure and formulating a model for data accessioning and preservation.&lt;/p&gt;
+
+&lt;p&gt;We prioritize open-source, library community-led solutions, so we looked most closely at &lt;a href=&quot;http://opengeoportal.org/&quot;&gt;OpenGeoPortal&lt;/a&gt; and &lt;a href=&quot;http://geoblacklight.org&quot;&gt;GeoBlacklight&lt;/a&gt;. GeoBlacklight quickly became the most attractive discovery interface for a variety of reasons. It emphasizes a robust metadata schema that facilitates library discovery, it is accompanied by an active developer community and is increasingly being adopted among peer institutions, it has a light-weight and easily expandable Ruby and JavaScript codebase, and it seamlessly integrates with many external technologies NYU Libraries are developing or implementing (&lt;a href=&quot;http://lucene.apache.org/solr/&quot;&gt;Solr&lt;/a&gt;, &lt;a href=&quot;http://iiif.io/&quot;&gt;IIIF&lt;/a&gt;, and &lt;a href=&quot;http://geoserver.org/&quot;&gt;GeoServer&lt;/a&gt; are a few examples).&lt;/p&gt;
+
+&lt;p&gt;We also made the decision to experiment with developing on a “cloud” platform. Originally, we made this choice because using a vendor like &lt;a href=&quot;https://aws.amazon.com/&quot;&gt;Amazon Web Services&lt;/a&gt; would allow us to spin up an entire development ecosystem very quickly and affordably. This approach, more than anything else, allowed us to make rapid progress on this project. The ability to play around, break things, and gain a more sophisticated understanding of different software interconnections was invaluable and is an important part of our development narrative.&lt;/p&gt;
+
+&lt;h3 id=&quot;key-elements-of-stanfords-model&quot;&gt;Key Elements of Stanford’s Model&lt;/h3&gt;
+
+&lt;p&gt;We modeled the redevelopment of our spatial data infrastructure on Earthworks and considered how Stanford’s deployment of GeoBlacklight, &lt;a href=&quot;https://earthworks.stanford.edu&quot;&gt;called EarthWorks&lt;/a&gt;, links up with their Library’s broader digital repository environment. The two pivotal pieces of information for us were &lt;a href=&quot;http://journal.code4lib.org/articles/9710&quot;&gt;a July, 2014 code4lib article on GeoBlacklight metadata&lt;/a&gt;, and a December, 2014 conference call with a few people at Stanford. The crucial idea that emerged from our reading and conversations is that spatial data collection should begin with preservation. There are many good reasons to do this, as will become evident as we describe our project. But for now:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Free and open data sources come and go so it’s important to preserve them&lt;/li&gt;
+  &lt;li&gt;A platform that takes care of preservation also allows for the retention of accompanying documentation in ways that a discovery platform like GeoBlacklight may not, although this has changed as the project has developed over time&lt;/li&gt;
+  &lt;li&gt;A preservation platform ensures that the original data format or map projection is saved, in case it is ever discovered that one of the derived editions is deficient&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This focus on preservation dovetails with another important point: that collection should be oriented around the &lt;a href=&quot;https://wiki.duraspace.org/display/FEDORA34/Fedora+Digital+Object+Model&quot;&gt;Fedora Digital Object Model&lt;/a&gt;. As we found out, a “digital object” can mean a lot of different things to different people, so following Stanford’s lead in defining digital objects and building a collection of them was highly instructive.&lt;/p&gt;
+
+&lt;h3 id=&quot;overview-of-posts&quot;&gt;Overview of Posts&lt;/h3&gt;
+
+&lt;p&gt;This post is an overview of a large, multifaceted collection workflow that relies on several elements of NYU Libraries.  The goal is to introduce those who are developing a collection workflow or a Spatial Data Infrastructure from scratch to the technologies and implementations associated with the GeoBlacklight project. Here is an outline of the posts.&lt;/p&gt;
+
+&lt;p&gt;Post 1 – GeoBlacklight at NYU: A Project Overview (this post)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Introduction to the Spatial Data Infrastructure (SDI) at NYU&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://andrewbattista.github.io/geoblacklight/2018/01/10/preservation.html&quot;&gt;Post 2 – DSpace and the Institutional Repository: Preservation and the Spatial Data Infrastructure&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How to design a collection workflow that begins with preservation&lt;/li&gt;
+  &lt;li&gt;How to structure a spatial data collection around existing library infrastructure&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://andrewbattista.github.io/geoblacklight/2018/01/11/creating-geoblacklight-metadata.html&quot;&gt;Post 3 – Creating GeoBlacklight Metadata Records&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How to create GeoBlacklight metadata records from scratch&lt;/li&gt;
+  &lt;li&gt;What to do with GeoBlacklight metadata records once they are created&lt;/li&gt;
+  &lt;li&gt;How to anticipate researcher-generated contributions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://andrewbattista.github.io/geoblacklight/2018/01/12/technology-stack-sdr.html&quot;&gt;Post 4 – The Technology Stack: Amazon Web Services Products &amp;amp; Open Source GIS&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How to navigate Amazon Web Services product offerings&lt;/li&gt;
+  &lt;li&gt;How to deploy products to test out a collection model&lt;/li&gt;
+  &lt;li&gt;How to take advantage of the FOSS community&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Post 5 – How to Stay Connected to the GeoBlacklight Community&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Where are GeoBlacklight discussions happening?&lt;/li&gt;
+  &lt;li&gt;How can new participants join in and influence the community?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Post 6 – Current Needs, Possible New Directions&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Establishing a metadata application profile&lt;/li&gt;
+  &lt;li&gt;Evolving the GeoBlacklight Schema&lt;/li&gt;
+  &lt;li&gt;New scholarship&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Andrew Battista and Stephen Balogh</name></author><summary type="html">This post was originally published in January 2016 and was designed to be a guide for setting up a Spatial Data Infrastructure using GeoBlacklight. I’ve placed them here and have made slight updates to reflect recent developments in our project and other projects surrounding this one at NYU.</summary></entry></feed>
