@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    
+      Post 1 - GeoBlacklight at NYU: A Project Overview &middot; Andrew Battista
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+</head>
+
+
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="/">
+          <h2 class="nav-title">Andrew Battista</h2>
+        </a>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/">Posts</a></li>
+        </ul>
+    </div>
+  </nav>
+
+    <main>
+      <div class="post">
+  <div class="post-info">
+    <span>Written by</span>
+    
+        Andrew Battista and Stephen Balogh
+    
+
+    
+      <br>
+      <span>on&nbsp;</span><time datetime="2018-01-09 10:48:45 -0500">January 09, 2018</time>
+    
+  </div>
+
+  <h1 class="post-title">Post 1 - GeoBlacklight at NYU: A Project Overview</h1>
+  <div class="post-line"></div>
+
+  <p><em>This post was originally published in January 2016 and was designed to be a guide for setting up a Spatial Data Infrastructure using GeoBlacklight. I’ve placed them here and have made slight updates to reflect recent developments in our project and other projects surrounding this one at NYU.</em></p>
+
+<h3 id="getting-started-with-geoblacklight">Getting Started with GeoBlacklight</h3>
+
+<p>In January, 2016, the GIS team at NYU’s Data Services released an <a href="https://geo.nyu.edu">advanced beta version of GeoBlacklight</a>, a search and discovery platform for geospatial data. This release comes after a year of developing a spatial data infrastructure (SDI) that includes a holistic model for discovery, storage, and preservation of spatial data. NYU’s instance of GeoBlacklight allows users to preview layers, explore attribute tables associated with points and geometries, export datasets directly into <a href="https://carto.com">Carto</a>, and download data in Shapefile, KML, or GeoJSON format.</p>
+
+<p>This is the first in a series of posts on developing a SDI that features GeoBlacklight as a discovery mechanism. These posts describe our previous year at NYU, a time in which we went from having almost no familiarity with GeoBlacklight to instituting a near-production level spatial data infrastructure.</p>
+
+<p>GeoBlacklight at NYU is part of a larger spatial data infrastructure and is based on the work of Stanford University Libraries. Stanford released <a href="https://earthworks.stanford.edu/">Earthworks</a>, a local deployment of GeoBlacklight, in 2015, and the university’s spatial data exists within a larger context of an institutional repository, or the <a href="https://sdr.stanford.edu/">Stanford Digital Repository</a>. Many thanks to <a href="https://www.jack-reed.com/">Jack Reed</a>, Darren Hardy, <a href="https://twitter.com/eosadler">Bess Sadler</a>, and <a href="https://twitter.com/kimtruck">Kim Durante</a> at Stanford and <a href="https://library.princeton.edu/staff/eliotj">Eliot Jordan</a> at Princeton. They have been more than generous in sharing their progress and advice with us.</p>
+
+<p><img src="https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/NYU%20Spatial%20Data%20Repository%20screenshot.png" alt="alt text" /></p>
+
+<p>Additionally, throughout the year we have participated in and co-led several sessions on GeoBlacklight metadata, including a <a href="httP;//tiny.cc/dlfmetadata">workshop at the 2015 DLF</a>. Still, we wanted to detail as much of our narrative as possible, both for the benefit of people within our own institution and for others who are developing spatial data infrastructures at their own institutions. We’ve found that while <a href="http://geoblacklight.org/tutorials.html">very good documentation on deploying GeoBlacklight exists</a>, there is less information about the parts of the collection workflow that surround GeoBlacklight, or on the ways in which a spatial data collection can be integrated into the environment of larger library collections, or what Durante and Hardy <a href="https://doi.org/10.1080/15420353.2015.1041630">call “durable, digital library assets”</a>.</p>
+
+<p>However, we must start with a disclaimer. We do not mean to insinuate that we have discovered the only or best way to facilitate spatial data collections or to author metadata; instead, much of this narrative represents a project that is still in process. We just want to share what has worked for us and encourage others in the GeoBlacklight community to develop with GeoBlacklight. We would also like to solicit feedback from the broader GIS and library technology community, particularly those who are attending the <a href="https://geo4libcamp2016.sched.org/">2016 Geo4Lib meeting at Stanford University</a>. Also, <a href="https://geo4libcamp2016.sched.org/">click here for the 2018 meeting schedule</a>.</p>
+
+<h3 id="background-at-nyu">Background at NYU</h3>
+
+<p>Prior to the deployment of GeoBlacklight, NYU provided access to collected geospatial datasets in two ways. While on campus, users could connect directly from ArcMap or QGIS to an Oracle database, which stored our collection. Additionally, a simple web interface allowed NYU users (either on or off campus) to browse text-only representations of the datasets within the library’s collections, and download zipped shapefiles. Given the configuration of the system, very little metadata was exposed to the user on the web interface (and virtually none in the direct-connection method). Thus, users also had no ability to do a spatial search, preview a layer (graphically or by querying datafields), or download data in a format other than a shapefile.</p>
+
+<p>Furthermore, it became highly impractical to add new spatial data to our collection, as we had no immediate access to the Oracle database. And what little spatial data collection that had taken place existed largely outside of the flow for collecting and discovering other born-digital items at NYU. Given the interest in developing a more feature-rich GIS discovery platform, which coalesces with NYU’s ongoing <a href="https://wp.nyu.edu/library-drsr/">Research Cloud Services</a> project, we started considering options for building the requisite infrastructure and formulating a model for data accessioning and preservation.</p>
+
+<p>We prioritize open-source, library community-led solutions, so we looked most closely at <a href="http://opengeoportal.org/">OpenGeoPortal</a> and <a href="http://geoblacklight.org">GeoBlacklight</a>. GeoBlacklight quickly became the most attractive discovery interface for a variety of reasons. It emphasizes a robust metadata schema that facilitates library discovery, it is accompanied by an active developer community and is increasingly being adopted among peer institutions, it has a light-weight and easily expandable Ruby and JavaScript codebase, and it seamlessly integrates with many external technologies NYU Libraries are developing or implementing (<a href="http://lucene.apache.org/solr/">Solr</a>, <a href="http://iiif.io/">IIIF</a>, and <a href="http://geoserver.org/">GeoServer</a> are a few examples).</p>
+
+<p>We also made the decision to experiment with developing on a “cloud” platform. Originally, we made this choice because using a vendor like <a href="https://aws.amazon.com/">Amazon Web Services</a> would allow us to spin up an entire development ecosystem very quickly and affordably. This approach, more than anything else, allowed us to make rapid progress on this project. The ability to play around, break things, and gain a more sophisticated understanding of different software interconnections was invaluable and is an important part of our development narrative.</p>
+
+<h3 id="key-elements-of-stanfords-model">Key Elements of Stanford’s Model</h3>
+
+<p>We modeled the redevelopment of our spatial data infrastructure on Earthworks and considered how Stanford’s deployment of GeoBlacklight, <a href="https://earthworks.stanford.edu">called EarthWorks</a>, links up with their Library’s broader digital repository environment. The two pivotal pieces of information for us were <a href="http://journal.code4lib.org/articles/9710">a July, 2014 code4lib article on GeoBlacklight metadata</a>, and a December, 2014 conference call with a few people at Stanford. The crucial idea that emerged from our reading and conversations is that spatial data collection should begin with preservation. There are many good reasons to do this, as will become evident as we describe our project. But for now:</p>
+
+<ul>
+  <li>Free and open data sources come and go so it’s important to preserve them</li>
+  <li>A platform that takes care of preservation also allows for the retention of accompanying documentation in ways that a discovery platform like GeoBlacklight may not, although this has changed as the project has developed over time</li>
+  <li>A preservation platform ensures that the original data format or map projection is saved, in case it is ever discovered that one of the derived editions is deficient</li>
+</ul>
+
+<p>This focus on preservation dovetails with another important point: that collection should be oriented around the <a href="https://wiki.duraspace.org/display/FEDORA34/Fedora+Digital+Object+Model">Fedora Digital Object Model</a>. As we found out, a “digital object” can mean a lot of different things to different people, so following Stanford’s lead in defining digital objects and building a collection of them was highly instructive.</p>
+
+<h3 id="overview-of-posts">Overview of Posts</h3>
+
+<p>This post is an overview of a large, multifaceted collection workflow that relies on several elements of NYU Libraries.  The goal is to introduce those who are developing a collection workflow or a Spatial Data Infrastructure from scratch to the technologies and implementations associated with the GeoBlacklight project. Here is an outline of the posts.</p>
+
+<p>Post 1 – GeoBlacklight at NYU: A Project Overview (this post)</p>
+
+<ul>
+  <li>Introduction to the Spatial Data Infrastructure (SDI) at NYU</li>
+</ul>
+
+<p><a href="https://andrewbattista.github.io/geoblacklight/2018/01/10/preservation.html">Post 2 – DSpace and the Institutional Repository: Preservation and the Spatial Data Infrastructure</a></p>
+
+<ul>
+  <li>How to design a collection workflow that begins with preservation</li>
+  <li>How to structure a spatial data collection around existing library infrastructure</li>
+</ul>
+
+<p><a href="https://andrewbattista.github.io/geoblacklight/2018/01/11/creating-geoblacklight-metadata.html">Post 3 – Creating GeoBlacklight Metadata Records</a></p>
+
+<ul>
+  <li>How to create GeoBlacklight metadata records from scratch</li>
+  <li>What to do with GeoBlacklight metadata records once they are created</li>
+  <li>How to anticipate researcher-generated contributions</li>
+</ul>
+
+<p><a href="https://andrewbattista.github.io/geoblacklight/2018/01/12/technology-stack-sdr.html">Post 4 – The Technology Stack: Amazon Web Services Products &amp; Open Source GIS</a></p>
+
+<ul>
+  <li>How to navigate Amazon Web Services product offerings</li>
+  <li>How to deploy products to test out a collection model</li>
+  <li>How to take advantage of the FOSS community</li>
+</ul>
+
+<p>Post 5 – How to Stay Connected to the GeoBlacklight Community</p>
+
+<ul>
+  <li>Where are GeoBlacklight discussions happening?</li>
+  <li>How can new participants join in and influence the community?</li>
+</ul>
+
+<p>Post 6 – Current Needs, Possible New Directions</p>
+
+<ul>
+  <li>Establishing a metadata application profile</li>
+  <li>Evolving the GeoBlacklight Schema</li>
+  <li>New scholarship</li>
+</ul>
+
+
+</div>
+
+<div class="pagination">
+  
+    <a href="/geoblacklight/2018/01/10/preservation.html" class="left arrow">&#8592;</a>
+  
+  
+
+  <a href="#" class="top">Top</a>
+</div>
+
+    </main>
+
+    <footer>
+      <span>
+        &copy; <time datetime="2022-08-28 11:37:48 -0400">2022</time> . Made with Jekyll using the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
+      </span>
+    </footer>
+  </body>
+</html>

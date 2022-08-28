@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    
+      Post 4 - The Technology Stack: Amazon Web Services Products &middot; Andrew Battista
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+</head>
+
+
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="/">
+          <h2 class="nav-title">Andrew Battista</h2>
+        </a>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/">Posts</a></li>
+        </ul>
+    </div>
+  </nav>
+
+    <main>
+      <div class="post">
+  <div class="post-info">
+    <span>Written by</span>
+    
+        Andrew Battista and Stephen Balogh
+    
+
+    
+      <br>
+      <span>on&nbsp;</span><time datetime="2018-01-12 10:48:45 -0500">January 12, 2018</time>
+    
+  </div>
+
+  <h1 class="post-title">Post 4 - The Technology Stack: Amazon Web Services Products</h1>
+  <div class="post-line"></div>
+
+  <p><em>Ths is the fourth post in a series about the deployment of GeoBlacklight at NYU. It was originally published in January, 2016. For an outline to the series, click <a href="https://andrewbattista.github.io/geoblacklight/2018/01/09/geoblacklight-overview.html">here</a>.</em></p>
+
+<p>GeoBlacklight itself is simple to deploy, and there are <a href="http://geoblacklight.org/tutorials.html">several richly-documented resources on how to do this with Packer, Vagrant, Docker, and other virtual machine tools</a>. However, the dependencies and entire technology stack behind our Spatial Data Infrastructure is a bit complex, so we hope that insight on specs and installations can help others in their development process. Note that neither the specific cloud-based services nor the way these software platforms relate to each other are necessarily intrinsic to GeoBlacklight. There are many other ways to deploy these tools.</p>
+
+<p><img src="https://github.com/andrewbattista/andrewbattista.github.io/blob/master/blog_media/aws_logo.png?raw=true" alt="Amazon Web Services logo" /></p>
+
+<p>Our most important initial decision was to use a cloud computing provider to host the majority of components comprising our geospatial data infrastructure. We ended up using <a href="https://aws.amazon.com/">Amazon Web Services</a>, but many viable competitors to AWS exist as well. Early on, AWS allowed us to prototype and stand up core elements of the stack to develop a good proof of concept, and using cloud infrastructure provided us with the invaluable opportunity to test interconnections between GeoBlacklight and the various other components of the stack. With AWS, it is simple to spin up temporary servers for purposes of testing. It has proven to be very straightforward to scale up directly from our initial prototype.</p>
+
+<p>At NYU, it became apparent that AWS could be a solution for running spatial data services in production, not just development. So far, we have been able to maintain a high-functioning service at a very reasonable cost, and because we had already had success in our university and within our team with AWS products, we were able to get institutional buy-in quickly.</p>
+
+<h3 id="outlining-the-pieces">Outlining the Pieces</h3>
+
+<p>First, let’s begin with our spatial data infrastructure as it currently stands.</p>
+
+<p><img src="https://raw.githubusercontent.com/andrewbattista/andrewbattista.github.io/master/blog_media/sdr-high-level.png" alt="A diagram of the collection elements" />
+<em>An overview of the collection architecture. Diagram by Deborah Verhoff, August 21, 2019</em></p>
+
+<p>What started as a series of drawings on a chalkboard ended up as this mostly-correct diagram of our deployment of our Spatial Data Repository. To explain how we stood up these various pieces, we created a table that indexes these parts as they pertain to our collection and service flow. In-depth glosses are below the table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>SDR Component</th>
+      <th>Description</th>
+      <th style="text-align: right">Documentation</th>
+      <th style="text-align: center">AWS Product Used</th>
+      <th style="text-align: center">NYU Deployment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PostGIS Database</td>
+      <td>Holds reprojected vector data</td>
+      <td style="text-align: right"><a href="https://postgis.net/documentation/">Available here</a></td>
+      <td style="text-align: center"><a href="https://aws.amazon.com/rds/">RDS</a></td>
+      <td style="text-align: center">unavailable</td>
+    </tr>
+    <tr>
+      <td>Solr</td>
+      <td>Search index for searches</td>
+      <td style="text-align: right"><a href="http://lucene.apache.org/solr/resources.html">Available here</a></td>
+      <td style="text-align: center"><a href="https://aws.amazon.com/ec2/">EC2</a></td>
+      <td style="text-align: center">unavailable</td>
+    </tr>
+    <tr>
+      <td>MySQL</td>
+      <td>Background database for Blacklight</td>
+      <td style="text-align: right">Available here</td>
+      <td style="text-align: center">RDS</td>
+      <td style="text-align: center">unavailable</td>
+    </tr>
+    <tr>
+      <td>DSpace</td>
+      <td>Institutional preservation repository</td>
+      <td style="text-align: right">General documentation</td>
+      <td style="text-align: center">N/A - on NYU Libraries servers</td>
+      <td style="text-align: center">unavailable</td>
+    </tr>
+    <tr>
+      <td>GeoServer</td>
+      <td>Produces WMS/WFS endpoints &amp; layer previews</td>
+      <td style="text-align: right"><a href="http://docs.geoserver.org/">General documentation</a></td>
+      <td style="text-align: center">EC2</td>
+      <td style="text-align: center">https://maps-public.geo.nyu.edu</td>
+    </tr>
+    <tr>
+      <td>GeoBlacklight</td>
+      <td>Ruby on Rails discovery environment</td>
+      <td style="text-align: right"><a href="https://github.com/NYULibraries/spatial_data_repository">Available here</a></td>
+      <td style="text-align: center">EC2</td>
+      <td style="text-align: center">https://geo.nyu.edu</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="postgis-database">PostGIS Database</h3>
+
+<p>Our PostGIS database runs on Amazon’s managed <a href="https://aws.amazon.com/rds/">relational database service (RDS)</a>. PostGIS extensions should be added to a default PostgreSQL database by following these instructions. While configuring your database, make sure to create read-only user accounts for GeoServer to use while retrieving vector geometries. At the current moment, we are using PostGIS only for vector data, though it would be possible to store rasters within it as well; we have opted to keep raster data as GeoTIFFs.</p>
+
+<p>One PostGIS database contains all vector layers, regardless of whether they are Public or Restricted (that distinction only becomes consequential at the GeoServer level for us). We use Amazon’s security groups to restrict traffic to and from this database, for additional protection. Traffic from outside the Virtual Private Cloud may be limited to NYU IP ranges (or another institutional IP range) if there is a desire to allow direct connections. Otherwise, when establishing the PostGIS database, access should be completely restricted to the GeoServer instance(s), as well as a management server.</p>
+
+<p>We have also experimented with directly connecting to PostGIS from a desktop GIS client (like QGIS). While this is possible, we have gotten better results by making a desktop connection via GeoServer’s WFS.</p>
+
+<h3 id="mysql-database-for-blacklight">MySQL (database for Blacklight)</h3>
+
+<p>We have chosen to use MySQL as the backend database for Blacklight. A database is required for user data, including bookmarks, etc. within the application. If replicating this, make sure to add gem ‘mysql2’ to your Gemfile, and adjust the appropriate database parameters. Our instance of MySQL also runs on Amazon RDS, and it contains two databases (one for production and one for development).</p>
+
+<h3 id="solr">Solr</h3>
+
+<p>Solr is the “blazing fast” search engine that powers GeoBlacklight. Since Solr has no user-access restriction measures by default, access to it is highly restricted in our deployment (and we recommend following suit). GeoBlacklight communicates with it directly via the RSolr client. At no time is a user connecting directly to a Solr core via their browser; the queries always go through Blacklight, which handles the Solr connection. Solr is deployed on an EC2 instance, and is fire-walled such that it is only able to communicate with the Rails server and a deployment server that has been designated for handling metadata ingest. We are maintaining production, staging, and development Solr cores, so that we can preview new records before publishing them to the production instance. This is a good strategy for catching errors in metadata records or seeing the effects of large-scale changes in metadata.</p>
+
+<h3 id="geoservers">Geoserver(s)</h3>
+
+<p>Geoserver is an open-source server for sharing geospatial data, and GeoServer provides two crucial services for us: the WMS and WFS endpoints that GeoBlacklight needs for layer previews and generated layer downloads respectively. We have two instances of GeoServer up, at:</p>
+
+<ul>
+  <li>https://maps-public.geo.nyu.edu</li>
+  <li>https://maps-restricted.geo.nyu.edu</li>
+</ul>
+
+<p>Both connect directly to the PostGIS database, though the layers enabled by each (and therefore being served) are mutually exclusive, and dependent on the Rights status in the metadata for the records. Layers are enabled and disabled by a Ruby script that runs through GeoBlacklight-schema JSON records, and then connects to the GeoServer REST API. We have separate instances of GeoServer for Public and Restricted data so that we can limit access to the Restricted endpoint to NYU IP address ranges. For users trying to access Restricted data from off-campus, OCLC EZproxy is used to establish a proxy after users authenticate with NYU Single Sign-on.</p>
+
+<h3 id="geoblacklight">GeoBlacklight</h3>
+
+<p>The SDR currently relies on GeoBlacklight to provide a discovery interface. Our local code modifications to GeoBlacklight core are logged on the production code instance here. GeoBlacklight is a Ruby on Rails application, and we have deployed it on an Ubuntu 14.04 server, hosted on an Amazon Web Services EC2 instance. Phusion Passenger, via Apache, is the Rails web server. HTTPS is forced (this is a requirement of the OmniAuth integration). Here is a helpful set of instructions on how to implement Passenger with Apache on Ubuntu 14.04 (albeit from a different cloud provider).</p>
+
+<h3 id="connecting-with-sso">Connecting with SSO</h3>
+
+<p>As is the case for many institutions providing access to geospatial data, there are specific license restrictions to much of the data in our collection. The easiest way to mediate access to these protected layers is to set up two instances of GeoServer and gate our restricted instance with NYU’s Single Sign-on service. GeoBlacklight also needs to be aware of user accounts from an institution’s greater SSO environment. Since GeoBlacklight is already built around user models from Devise, we were able to connect to NYU SSO by using an OmniAuth strategy for <a href="https://rubygems.org/gems/devise/versions/4.2.0">Devise</a>.</p>
+
+<h3 id="final-words">Final Words</h3>
+
+<p>We are happy to answer any specific question about the deployment of these platforms. Also note that as elements of NYU Libraries production practices change, several minor changes may be made.</p>
+
+
+</div>
+
+<div class="pagination">
+  
+    <a href="/geoblacklight/2018/06/12/collection-workflow.html" class="left arrow">&#8592;</a>
+  
+  
+    <a href="/geoblacklight/2018/01/11/creating-geoblacklight-metadata.html" class="right arrow">&#8594;</a>
+  
+
+  <a href="#" class="top">Top</a>
+</div>
+
+    </main>
+
+    <footer>
+      <span>
+        &copy; <time datetime="2022-08-28 11:37:48 -0400">2022</time> . Made with Jekyll using the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
+      </span>
+    </footer>
+  </body>
+</html>
